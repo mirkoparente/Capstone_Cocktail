@@ -1,0 +1,75 @@
+﻿@model IEnumerable<WebApplication1.Models.Prodotti>
+
+@{
+    ViewBag.Title = "ListaAccessoriAdmin";
+}
+
+<div class="container table-responsive mt-5 pt-5">
+    <h4 class="text-center my-3">Gestione Cocktail</h4>
+
+    <table class="table align-middle mb-0 bg-body-tertiary">
+        <thead class="bg-light">
+            <tr>
+                <th>Cocktail</th>
+                <th>Prezzo</th>
+                <th>Disponibilità</th>
+                <th>Quantità</th>
+                <th>Categoria</th>
+                <th>
+                    <a href="@Url.Action("AddProdotto","Prodotti")"><i class="fa-solid fa-plus text-dark"></i></a>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="@Url.Action("DettagliProdotto","Prodotti", new{id=item.IdProdotti })">
+
+                                <img src="~/Content/img/@item.FotoCopertina"
+                                     alt=""
+                                     style="width: 45px; height: 45px"
+                                     class="rounded-circle" />
+                            </a>
+                            <div class="ms-3">
+                                <p class="text-muted mb-0">@item.NomeProdotto</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal text-muted mb-1">@item.Prezzo.ToString("C2")</p>
+                    </td>
+                    <td>
+                        @if (item.Disponibile == true)
+                        {
+                            string d = "Disponibile";
+                            <span class="badge badge-success rounded-pill d-inline">@d</span>
+                        }
+                        else
+                        {
+                            string n = "Non Disponibile";
+
+                            <span class="badge badge-danger rounded-pill d-inline">@n</span>
+
+                        }
+                    </td>
+
+                    <td class="text-muted">@item.Quantita Pz</td>
+                    <td class="text-muted">@item.Categoria.DescrizioneCategoria</td>
+                    <td>
+
+                        <a href="@Url.Action("EditProdotto","Prodotti", new { id=item.IdProdotti })"><i class="fa-regular fa-pen-to-square text-dark"></i></a>
+                        <a href="@Url.Action("DettagliProdotto","Prodotti", new{id=item.IdProdotti })"><i class="fa-solid fa-circle-info text-dark"></i></a>
+
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

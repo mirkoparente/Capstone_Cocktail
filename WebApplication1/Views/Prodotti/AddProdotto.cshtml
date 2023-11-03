@@ -1,0 +1,212 @@
+﻿@model WebApplication1.Models.Prodotti
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm("AddProdotto", "Prodotti", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="py-5 my-5">
+
+        <div class="container mt-5">
+            <h4 class="text-center mb-3">Nuovo prodotto</h4>
+            <div class="card mb-3">
+                <div class="row g-0">
+                    <div class="col-md-8">
+                        <div class="form-horizontal" style="padding-left: 50px; padding-right: 50px">
+                            <br />
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        <div class="form-outline mb-3">
+                                            @Html.EditorFor(model => model.NomeProdotto, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.LabelFor(model => model.NomeProdotto, new { @class = "form-label" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.NomeProdotto, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <div class="form-outline mb-3">
+                                            @Html.EditorFor(model => model.DescrizioneBreve, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.LabelFor(model => model.DescrizioneBreve, new { @class = "form-label" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.DescrizioneBreve, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.Descrizione, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(model => model.Descrizione, new { @class = "form-label" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <div class="form-outline mb-3">
+                                            @Html.EditorFor(model => model.Quantita, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.LabelFor(model => model.Quantita, new { @class = "form-label" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Quantita, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-group">
+                                        <div class="form-outline mb-3">
+                                            @Html.EditorFor(model => model.Prezzo, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.LabelFor(model => model.Prezzo, new { @class = "form-label" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Prezzo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.PrezzoScontato, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.LabelFor(model => model.PrezzoScontato, new { @class = "form-label" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.PrezzoScontato, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.Disponibile, new { htmlAttributes = new { @class = "form-checkbox" } })
+                                    @Html.LabelFor(model => model.Disponibile, new { @class = "form-label" })
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FotoCopertina, new { @class = "col-form-label" })
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.FotoCopertina, new { htmlAttributes = new { @class = "form-control", @type = "file", @id = "Foto" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.FotoCopertina, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Foto1, new { @class = "col-form-label col-md-2" })
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.Foto1, new { htmlAttributes = new { @class = "form-control", @type = "file", @id = "Foto" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Foto1, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Foto2, new { @class = "col-form-label col-md-2" })
+                                <div class="form-outline mb-3">
+                                    @Html.EditorFor(model => model.Foto2, new { htmlAttributes = new { @class = "form-control", @type = "file", @id = "Foto" } })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Foto2, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group mb-3">
+                                @Html.LabelFor(model => model.IdCategoria, "Categoria", htmlAttributes: new { @class = "Form-label" })
+                                <div class="col-md-12">
+                                    @Html.DropDownList("IdCategoria", null, "Seleziona", new { @class = "form-select", @id = "categoria" })
+                                    @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div id="divhidden">
+
+                                <div class="row">
+                                    <div class="col">
+
+                                        <div class="form-group">
+                                            <div class="form-outline mb-3">
+                                                @Html.EditorFor(model => model.Gusto, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.LabelFor(model => model.Gusto, new { @class = "form-label" })
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Gusto, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col">
+
+                                        <div class="form-group">
+                                            <div class="form-outline mb-3">
+                                                @Html.EditorFor(model => model.Abbinamenti, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.LabelFor(model => model.Abbinamenti, new { @class = "form-label" })
+                                            </div>
+                                            @Html.ValidationMessageFor(model => model.Abbinamenti, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="form-outline mb-3">
+                                        @Html.EditorFor(model => model.Ingredienti, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.LabelFor(model => model.Ingredienti, new { @class = "form-label" })
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Ingredienti, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Aggiungi  prodotto" class="btn btn-dark mb-4" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/A_Manhattan.jpg/1200px-A_Manhattan.jpg"
+                             alt="Immagine Prodotto"
+                             class="img-fluid rounded-start"
+                             style="width: auto; height: 680px;"
+                             id="imgUpload" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+            $(document).ready(function () {
+                $("#categoria").change(function () {
+                    var select = $(this).val()
+                    console.log(select)
+                    var divhidden = $("#divhidden")
+                    console.log(divhidden)
+                    if (select==2) {
+                        divhidden.addClass('d-none')
+                    } else {
+                        divhidden.removeClass('d-none')
+
+                    }
+                })
+                $('#Foto').change(function () {
+                    var input = this;
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imgUpload').attr('src', e.target.result);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                    else {
+                        imagePreview.attr("src", "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/A_Manhattan.jpg/1200px-A_Manhattan.jpg");
+                    }
+                });
+            })
+    </script>
+}
+
+

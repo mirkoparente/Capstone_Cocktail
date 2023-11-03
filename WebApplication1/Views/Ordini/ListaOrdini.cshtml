@@ -1,0 +1,161 @@
+﻿@model IEnumerable<WebApplication1.Models.Ordini>
+
+@{
+    ViewBag.Title = "ListaOrdini";
+}
+
+<div class="container table-responsive mt-5 pt-5">
+    <h4 class="text-center my-3">Gestione Ordini</h4>
+    <div class=" mt-5">
+        <div class="row justify-content-center">
+            <div class="col 12">
+                <div class="card">
+                    <div class="card-header text-white bg-dark">
+                        <h3 class="card-title">Statistiche giornaliere</h3>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div class="form-group">
+                                <label for="data">Seleziona una data:</label>
+                                <input type="date" class="form-control" id="data" name="data" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                            </div>
+                            <br />
+                            <div class="form-group text-center">
+                                <button type="button" id="visualizza-statistiche" class="btn btn-dark">Visualizza Statistiche</button>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <p id="p"> </p>
+                            <p>
+                                Elenco Prodotti venduti:
+                            </p>
+                            <ul class="list-group" id="numero-Prodotti">
+                            </ul>
+
+                            <p>
+                                Totale incassato nella giornata:
+                            </p>
+                            <ul id="totale-incassato">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table align-middle mb-0 bg-body-tertiary">
+        <thead class="bg-light">
+            <tr>
+                <th>Cliente</th>
+                <th>Indirizzo</th>
+                <th>Data Ordine</th>
+                <th>Quantità Prodotti</th>
+                <th>Totale Ordine</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+
+                            <img src="https://m.media-amazon.com/images/I/418wK+6vaQL.png"
+                                 alt=""
+                                 style="width: 45px; height: 45px"
+                                 class="rounded-circle" />
+                            <div class="ms-3">
+                                <p class="text-muted mb-0">@item.AspNetUsers.Nome</p>
+                                <p class="text-muted mb-0">@item.AspNetUsers.Cognome</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="text-muted mb-0">@item.AspNetUsers.Indirizzo</p>
+
+                    </td> <td>
+                        <p class="text-muted mb-0">@item.DataOrdine</p>
+
+                    </td>
+
+
+                    <td>
+
+                        @foreach (var i in item.DettagliOrdine)
+                        {
+
+                            <p class="text-muted">@i.Quantita Pz  - @i.Prodotti.NomeProdotto</p>
+                        }
+                    </td>
+
+                    @{
+                        decimal tot = Convert.ToDecimal(item.TotaleOrdine);
+                    }
+
+                    <td>
+                        <p class="fw-normal text-muted mb-1">@tot.ToString("C2") </p>
+                    </td>
+
+
+                    <td>
+                        <a href="@Url.Action("DettagliOrdine", "Ordini", new { id = item.IdOrdini })"><i class="fa-solid fa-circle-info text-dark"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function() {
+            $('#visualizza-statistiche').click(function () {
+                var newDate = $('#data').val()
+                console.log(newDate)
+                $('#numero-Prodotti').empty()
+                $('#totale-incassato').empty()
+                $.ajax({
+                    method: 'GET',
+                    url: '@Url.Action("Lista","Ordini")',
+                    data: { data: newDate },
+                    success: function (response) {
+                        console.log(response);
+                        var totale=0
+                        $.each(response, function (i, v) {
+                            //totale
+                            totale += v.TotaleOrdine
+                            //creo li
+                            var l = $(`<li class="list-group-item"> Ordine n:${v.IdOrdini}</li> `)
+                            //creo ul
+                            var ul = $(`<ul class="list-group" "></ul>`)
+
+                            $.each(v.DettagliOrdine, function (i, e) {
+                                console.log("ff", e)
+                                //Creo li annidato
+                                var c = `<li class="list-group-item">${e.Nome} - Quantità:${e.Quantita} </li> `
+                                //Appendo li annidato
+                                ul.append(c)
+
+                                })
+                            $("#p").html(`Numero Ordini: ${response.length}`)
+                            //Appendo la ul al primo li
+                            l.append(ul)
+
+                            //Appendo li al primo ul
+                            $('#numero-Prodotti').append(l)
+                        })
+
+                        $('#totale-incassato').append(totale.toLocaleString("it-IT", {style: 'currency',currency: 'EUR',}));
+                    },
+                    error: function(error) {
+                    console.log(error);
+                }
+                })
+            })
+
+        })
+    </script>
+}

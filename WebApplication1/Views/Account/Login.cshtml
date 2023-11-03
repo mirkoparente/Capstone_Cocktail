@@ -1,0 +1,81 @@
+﻿@using WebApplication1.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Accedi";
+}
+
+    <section class="position-relative py-5 overflow-hidden">
+        <div class="d-none d-lg-block position-absolute top-0 start-0 bg-black w-75 h-100" style="background-image:url(https://images.unsplash.com/photo-1582457601528-5f8757143fb1?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzIzMzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTgyMjcwMTV8&ixlib=rb-4.0.3&q=85&w=1224&h=1280);background-position:bottom">
+
+
+        </div>
+        <div class="d-sm-none position-absolute top-0 start-0 w-100 h-100">
+
+        </div>
+        <div class="container position-relative mx-auto">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-5 mb-5">
+                </div>
+                <div class="col-12 col-lg-5 ms-auto">
+                    <div class="p-5 mt-5 bg-light rounded text-center">
+
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            if (ViewBag.Error != null)
+                            {
+                                <p class="text-danger">@ViewBag.Error</p>
+                            }
+                            <h3 class="fw-bold mb-5">Ciao è un piacere rivederti</h3>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email" } })
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label", @for = "Email" })
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id = "Password", type = "password" } })
+                                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "form-label", @for = "password" })
+                            </div>
+
+                            <div class="d-flex mb-4">
+
+                                <div class="form-check">
+                                    @Html.CheckBoxFor(model => model.RememberMe, new { @class = "form-check-input", id = "rememberMe" })
+                                    @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "form-check-label", @for = "rememberMe" })
+                                </div>
+                            </div>
+                            <button class="btn btn-dark py-2 w-100 mb-4">Login</button>
+                            @Html.ActionLink("Password dimenticata?", "ForgotPassword", new { @class = "link-secondary d-inline-block mb-4" })
+
+}
+                            @*<a class="d-flex justify-content-center align-items-center text-muted mb-2 py-2 bg-white rounded w-100 text-decoration-none" href="#">
+                                <img class="img-fluid" src="bootstrap5-plain-assets/socials/facebook.svg" alt="">
+                                <span class="text-muted">Sign in with Facebook</span>
+                            </a>*@
+                            <section id="socialLoginForm">
+                                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                            </section>
+                            <div class="d-flex justify-content-center">
+
+                                <p class="text-muted">Non hai un account?</p><span class="mb-5">
+                                    <a href="Register">
+                                        Registrati qui
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

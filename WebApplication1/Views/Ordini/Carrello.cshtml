@@ -1,0 +1,287 @@
+﻿@model WebApplication1.Models.Ordini
+
+@{
+    ViewBag.Title = "Carrello";
+}
+
+@if (ViewBag.Carrello.Count == 0)
+{
+    <div class="d-flex justify-content-center pt-5 mt-5">
+
+        <h5 class="mt-5">Ancora nessun prodotto nel carrello</h5>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+        <a href="@Url.Action("ListaCocktail","Prodotti")" class="btn btn-dark">
+            <i class="fas fa-long-arrow-alt-left me-2"></i>Acquista ora
+        </a>
+    </div>
+}
+else
+{
+
+    <section class="h-100 h-custom mt-4">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12">
+                    <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                        <div class="card-body p-0">
+                            <div class="row g-0">
+                                @*Prodotti nel carrello*@
+                                <div class="col-lg-8">
+                                    <div class="p-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-5">
+                                            <h1 class="fw-bold mb-0 text-black">Riepilogo Ordine</h1>
+
+                                        </div>
+                                        <hr class="my-4">
+
+                                        @foreach (var item in ViewBag.Carrello)
+                                        {
+
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <a href="@Url.Action("DettagliProdotto","Prodotti",new {id=item.IdProdotti})">
+
+                                                        <img src="~/Content/Img/@item.FotoCopertina"
+                                                             class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h6 class="text-muted"></h6>
+                                                    <h6 class="text-black mb-0">@item.NomeProdotto</h6>
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                    <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepDown()" data-product-id=@item.IdProdotti>
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+
+                                                    <input id="quantita_@item.IdProdotti" min="0" name="quantity" value="@item.QuantitaAcquistata" type="number"
+                                                           class="form-control form-control-sm qButton" data-product-id=@item.IdProdotti />
+
+                                                    <button class="btn btn-link px-2"
+                                                            onclick="this.parentNode.querySelector('input[type=number]').stepUp()" data-product-id=@item.IdProdotti>
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    @{
+                                                        decimal tot = (item.QuantitaAcquistata * item.Prezzo);
+                                                    }
+                                                    <h6 class="mb-0">@tot.ToString("C2")</h6>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <button value=@item.IdProdotti class="btn btn-outline-danger deleteBtn"><i class="fas fa-times"></i></button>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        <hr class="my-4">
+
+                                        <div class="pt-5">
+                                            <h6 class="mb-0">
+                                                <a href="@Url.Action("ListaCocktail","Prodotti")" class="text-body">
+                                                    <i class="fas fa-long-arrow-alt-left me-2"></i>Continua i tuoi acquisti
+                                                </a>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4 bg-grey">
+                                    <div class="p-5">
+                                        <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                        <hr class="my-4">
+
+                                        <div class="d-flex justify-content-between mb-5">
+                                            <h5 class="text-uppercase mb-3">Total price</h5>
+                                            <h5>
+                                                @if (ViewBag.Totale != null)
+                                                {
+                                                    @ViewBag.Totale.ToString("C2")
+                                                }
+                                                else
+                                                {
+                                                    0.ToString("C2");
+
+                                                }
+                                            </h5>
+                                        </div>
+
+
+
+                                        <div class="mb-5 d-none" id="respContainer">
+
+
+                                        </div>
+
+
+
+
+                                        <hr class="my-5">
+
+
+
+                                        @*<button type="button" class="btn btn-primary" @(ViewBag.Carrello.Count == 0 ? "disabled" : "" ) id="checkout"
+                                                    data-mdb-ripple-color="dark">
+                                                Checkout
+                                            </button>*@
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+
+
+                                            <div id="paypal-button-container"></div>
+
+
+                                            <p id="result-message"></p>
+
+
+                                            <!-- Replace the "test" client-id value with your client-id -->
+
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-dark" href="@Url.Action("Login","Account")">Devi essere loggato per completare l'acquisto'</a>
+                                        }
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://www.paypal.com/sdk/js?client-id=AcI4QMqvxfWxrEwADE7phJMFiR7Un7C3oLo7DJCnPLhVh5oNFILIwbaKwxUutM2P6CjzN3b8AldA2B4T&currency=EUR"></script>
+    <script>
+
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color: 'gold',
+                shape: 'pill',
+                label: 'paypal',
+                tagline: false
+            },
+
+            createOrder: function (data, actions) {
+
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '0.01'
+                        }
+                    }]
+                })
+            },
+            onApprove: function (data, actions) {
+                return actions.order.capture().then(function (detail) {
+                    $.ajax({
+                        method: 'POST',
+                        url: "Checkout",
+                        success: function (data) {
+                            console.log(data)
+                            $(window.location).attr("href", "./ConfermaOrdine")
+                            
+                        }
+                    })
+                    console.log("detail", detail)
+                })
+            },
+            onError: function (err) {
+                console.log("Paypal Error", err)
+            }
+
+        }).render("#paypal-button-container");
+
+
+
+
+
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+            $(".qButton").change(function () {
+                var idProdotto = $(this).data('product-id');
+                console.log(idProdotto)
+                var q = $(`#quantita_${idProdotto}`).val()
+                console.log(q)
+                $.ajax({
+                    method: 'GET',
+                    url: "editPrdCarello",
+                    data: { id: idProdotto, quantita: q },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.length > 0) {
+                            $(window.location).attr("href", "./Carrello")
+                        }
+                    }
+                })
+            })
+            $(".btn-link").click(function () {
+                var idProdotto = $(this).data('product-id');
+                console.log(idProdotto)
+                var q = $(`#quantita_${idProdotto}`).val()
+                console.log(q)
+                $.ajax({
+                    method: 'GET',
+                    url: "editPrdCarello",
+                    data: { id: idProdotto, quantita: q },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.length > 0) {
+                            $(window.location).attr("href", "./Carrello")
+                        }
+                        if (data.length == 0) {
+                            $(window.location).attr("href", "./Carrello")
+                        }
+
+                    }
+                })
+            })
+
+
+
+            $('.deleteBtn').click(function () {
+                var idPrd = parseInt(this.value)
+                console.log(idPrd)
+                $.ajax({
+                    method: 'GET',
+                    url: "deletePrdCarello",
+                    data: { id: idPrd },
+                    success: function (data) {
+                        console.log(data)
+                        if (data.length >= 0) {
+                            $(window.location).attr("href", "./Carrello")
+                        }
+                    }
+                })
+
+
+            })
+        })
+
+
+
+    </script>
+
+
+
+
+
+}
+

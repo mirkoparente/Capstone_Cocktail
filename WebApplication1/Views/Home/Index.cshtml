@@ -1,0 +1,126 @@
+﻿@model IEnumerable<WebApplication1.Models.Prodotti>
+
+<!-- Carousel wrapper -->
+<div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+
+    <!-- Inner -->
+    <div class="carousel-inner rounded-5 shadow-4-strong">
+        <!-- Single item -->
+        <div class="carousel-item active" data-bs-interval="14000">
+            <video source src="~/Content/Video/Cocktail video.mp4" autoplay muted loop;
+                   class="d-block w-100 object-fit-cover"></video>
+            <div class="carousel-caption d-none d-md-block">
+                <h5>First slide label</h5>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item" data-bs-interval="14000">
+            <img src="https://www.repstatic.it/content/contenthub/img/2022/01/11/120126965-ebe7f1d2-e043-473e-acad-995ea3772bad.jpg" class="d-block w-100 "
+                 alt="Canyon at Nigh" />
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Second slide label</h5>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item" data-bs-interval="14000">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp" class="d-block w-100"
+                 alt="Cliff Above a Stormy Sea" />
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Third slide label</h5>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Inner -->
+    <!-- Controls -->
+
+</div>
+<!-- Carousel wrapper -->
+@*Bestseller*@
+
+<div class="container-fluid mt-5 bg-body-tertiary py-5">
+
+
+    <!--Section: Content-->
+    <section class="container dark-grey-text text-center mt-5 ">
+
+        <!-- Section heading -->
+        <h3 class="font-weight-bold mb-4 pb-2">I nostri bestsellers</h3>
+        <!-- Section description -->
+        <p class="grey-text w-responsive mx-auto mb-5">Brinda con i cocktail più amati di sempre</p>
+
+        <!-- Grid row -->
+        <div class="row">
+
+            <!-- Grid column -->
+            @foreach (var i in Model)
+            {
+
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <!-- Collection card -->
+
+                    <div class="card collection-card z-depth-1-half">
+                        <!-- Card image -->
+                        <div class="view zoom">
+                            <a href="@Url.Action("DettagliProdotto","Prodotti",new {id=i.IdProdotti})">
+
+                                <img src="~/Content/img/@i.FotoCopertina" class="img-fluid"
+                                     alt="">
+                            </a>
+                            <div class="stripe dark">
+                                <a href="@Url.Action("DettagliProdotto","Prodotti",new {id=i.IdProdotti})">
+
+                                    <p>
+                                        @i.NomeProdotto
+                                        <i class="fas fa-angle-right"></i>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Card image -->
+                    </div>
+                    <!-- Collection card -->
+                </div>
+            }
+            <!-- Grid column -->
+            <div class="d-flex justify-content-center">
+                <a href="@Url.Action("ListaCocktail","Prodotti")" class="btn btn-dark mt-5">Scopri tutti i cocktail</a>
+            </div>
+        </div>
+        <!-- Grid row -->
+
+    </section>
+    <!--Section: Content-->
+    <div class="container-fluid py-5">
+
+        <div class="row my-5">
+            <h3 class="fs-big text-center mb-5">Ordinare è semplice</h3>
+            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3">
+                <h4 class="fs-istruzioni text-center">1</h4>
+                <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_cuore.png" alt="" />
+                <p class=" text-center ps-3">Seleziona i prodotti che preferisci</p>
+            </div>
+            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3">
+                <h4 class="fs-istruzioni">2</h4>
+                <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_cart.png" alt="" class="iconaOrdina" />
+                <p class="ps-3">Aggiungi al Carrello</p>
+            </div>
+            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3">
+                <h4 class="fs-istruzioni">3</h4>
+                <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_ceck.png" alt="" class="iconaOrdina" />
+                <p class="ps-3">Completa l'ordine</p>
+            </div>
+            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3 bg-red">
+                <h4 class="fs-istruzioni">4</h4>
+                <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_posate.png" alt="" class="iconaOrdina" />
+                <p class="ps-3">Gusta il prodotto</p>
+            </div>
+        </div>
+    </div>
+
+</div>
