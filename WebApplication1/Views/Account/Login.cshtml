@@ -26,10 +26,10 @@
 
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                            if (ViewBag.Error != null)
+                            @*if (ViewBag.Error != null)
                             {
                                 <p class="text-danger">@ViewBag.Error</p>
-                            }
+                            }*@
                             <h3 class="fw-bold mb-5">Ciao è un piacere rivederti</h3>
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                             <div class="form-outline mb-4">

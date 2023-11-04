@@ -14,9 +14,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using WebApplication1.Models;
-using DotNetEnv;
 
-// Carica le variabili d'ambiente dal file .env
 
 namespace WebApplication1
 {
@@ -29,11 +27,10 @@ namespace WebApplication1
 
         private async Task SendEmailAsync(IdentityMessage message)
         {
-            DotNetEnv.Env.Load();
-            var smtpHost = Environment.GetEnvironmentVariable("SMTP_HOST");
-            var smtpPort = Convert.ToInt32(Environment.GetEnvironmentVariable("SMTP_PORT"));
-            var smtpUsername = Environment.GetEnvironmentVariable("SMTP_USERNAME");
-            var smtpPassword = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+            var smtpHost = ConfigurationManager.AppSettings["SmtpHost"];
+            var smtpPort = int.Parse(ConfigurationManager.AppSettings["SmtpPort"]);
+            var smtpUsername = ConfigurationManager.AppSettings["SmtpUsername"];
+            var smtpPassword = ConfigurationManager.AppSettings["SmtpPassword"];
 
             using (SmtpClient client = new SmtpClient(smtpHost, smtpPort))
             {

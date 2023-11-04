@@ -334,6 +334,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrdiniController.cs" />
     <Compile Include="Controllers\ProdottiController.cs" />
+    <Compile Include="Controllers\UtentiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -451,6 +452,7 @@
     <Content Include="Views\Ordini\Carrello.cshtml" />
     <Content Include="Views\Ordini\ListaOrdini.cshtml" />
     <Content Include="Views\Ordini\ConfermaOrdine.cshtml" />
+    <Content Include="Views\Utenti\ListaUtenti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

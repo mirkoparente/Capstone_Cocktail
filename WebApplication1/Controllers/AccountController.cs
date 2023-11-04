@@ -53,6 +53,9 @@ namespace WebApplication1.Controllers
             }
         }
 
+
+       
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -159,7 +162,7 @@ namespace WebApplication1.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    UserManager.AddToRole(user.Id, "Admin");
+                    UserManager.AddToRole(user.Id, "User");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     //Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771

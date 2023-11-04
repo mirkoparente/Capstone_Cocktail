@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebApplication1.Models.AspNetUsers>
+
+@{
+    ViewBag.Title = "ListaUtenti";
+}
+
+<div class="container table-responsive mt-5 pt-5">
+    <h4 class="text-center my-3">Gestione Utenti registrati</h4>
+
+    <table class="table align-middle mb-0 bg-body-tertiary">
+        <thead class="bg-light">
+            <tr>
+                <th>Utente</th>
+                <th>Indirizzo</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Username</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center">
+
+                            <img src="https://toppng.com//public/uploads/preview/circled-user-icon-user-pro-icon-11553397069rpnu1bqqup.png"
+                                 alt=""
+                                 style="width: 45px; height: 45px"
+                                 class="rounded-circle" />
+                            <div class="ms-3">
+                                <p class="text-muted mb-0">@item.Nome</p>
+                                <p class="text-muted mb-0">@item.Cognome</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <p class="fw-normal text-muted mb-1">@item.Indirizzo</p>
+                    </td>
+                    <td>
+                        <p class="text-muted mb-0">@item.Telefono</p>
+
+                    </td>
+
+                    <td class="text-muted">@item.Email</td>
+                    <td class="text-muted">@item.UserName</td>
+                    <td>
+
+                        @*<a href="@Url.Action("EditUtente","Utenti", new { id=item.IdUtenti })"><i class="fa-regular fa-pen-to-square text-dark"></i></a>*@
+
+
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+</div>

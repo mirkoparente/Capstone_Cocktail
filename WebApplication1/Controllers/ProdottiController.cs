@@ -99,16 +99,22 @@ namespace WebApplication1.Controllers
 
                 db.Prodotti.Add(prodotti);
                 db.SaveChanges();
+                if (User.IsInRole("Admin"))
+                {
+
                 if (prodotti.IdCategoria == 1)
                 {
-                    return RedirectToAction("ListaCocktail");
+                    return RedirectToAction("ListaCocktailAdmin");
 
                 }
                 else
                 {
-                    return RedirectToAction("ListaAccessori");
+                    return RedirectToAction("ListaAccessoriAdmin");
 
                 }
+                }
+              
+                
             }
 
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "DescrizioneCategoria", prodotti.IdCategoria);
