@@ -4,7 +4,56 @@
 }
 
 <main aria-labelledby="title">
-    <h2 class="mt-5 pt-5" id="title">@ViewBag.Title.</h2>
+    <section class="py-5 overflow-hidden">
+
+        <div class="container mx-auto">
+            <div class="row align-items-center">
+
+                <div class="col 12 col-lg-6 mx-auto">
+                    <div class="p-5 mt-5 bg-light rounded text-center">
+
+                        <h3 class="fw-bold mb-5">Gestisci Account</h3>
+
+                        <a href="@Url.Action("ModificaUtente","Utenti")" class="btn btn-dark py-2 w-100 mb-4">Modifica Account </a>
+
+                        <div>
+                            
+                            @if (Model.HasPassword)
+                            {
+                                @Html.ActionLink("Cambia password", "ChangePassword", null, new {@class= "btn btn-dark py-2 w-100 mb-4" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Crea", "SetPassword", new { @class = "btn btn-dark py-2 w-100 mb-4" })
+                            }
+                            
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @*<h2 class="mt-5 pt-5" id="title">@ViewBag.Title.</h2>
 
     <p class="text-success">@ViewBag.StatusMessage</p>
     <div>
@@ -24,21 +73,21 @@
                     @Html.ActionLink("Crea", "SetPassword")
                 }
                 ]
-            </dd>
-            @*<dt>Account di accesso esterni:</dt>
-            <dd>
-                @Model.Logins.Count [
-                @Html.ActionLink("Manage", "ManageLogins") ]
             </dd>*@
+            @*<dt>Account di accesso esterni:</dt>
+                <dd>
+                    @Model.Logins.Count [
+                    @Html.ActionLink("Manage", "ManageLogins") ]
+                </dd>*@
             @*
-                È possibile usare i numeri di telefono come secondo fattore di verifica in un sistema di autenticazione a due fattori.
-             
-             Vedere <a href="https://go.microsoft.com/fwlink/?LinkId=403804">questo articolo</a>
-                per informazioni su come configurare l'applicazione ASP.NET per il supporto dell'autenticazione a due fattori usando gli SMS.
-             
-             Rimuovere i commenti dal blocco seguente dopo aver configurato l'autenticazione a due fattori
+                   È possibile usare i numeri di telefono come secondo fattore di verifica in un sistema di autenticazione a due fattori.
+
+                Vedere <a href="https://go.microsoft.com/fwlink/?LinkId=403804">questo articolo</a>
+                   per informazioni su come configurare l'applicazione ASP.NET per il supporto dell'autenticazione a due fattori usando gli SMS.
+
+                Rimuovere i commenti dal blocco seguente dopo aver configurato l'autenticazione a due fattori
             *@
-            @*  
+            @*
                 <dt>Numero di telefono:</dt>
                 <dd>
                     @(Model.PhoneNumber ?? "None")
@@ -64,27 +113,27 @@
                     Non sono configurati provider di autenticazione a due fattori. Vedere <a href="https://go.microsoft.com/fwlink/?LinkId=403804">questo articolo</a>
                 per informazioni su come configurare l'applicazione ASP.NET per il supporto dell'autenticazione a due fattori.
                 </p>-->
-                @*@if (Model.TwoFactor)
+            @*@if (Model.TwoFactor)
+                {
+                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
                     {
-                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <text>Attivato
-                            <input type="submit" value="Disabilita" class="btn btn-link" />
-                            </text>
-                        }
+                        @Html.AntiForgeryToken()
+                        <text>Attivato
+                        <input type="submit" value="Disabilita" class="btn btn-link" />
+                        </text>
                     }
-                    else
+                }
+                else
+                {
+                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
                     {
-                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <text>Disabilitata
-                            <input type="submit" value="Abilita" class="btn btn-link" />
-                            </text>
-                        }
-                    }*@
+                        @Html.AntiForgeryToken()
+                        <text>Disabilitata
+                        <input type="submit" value="Abilita" class="btn btn-link" />
+                        </text>
+                    }
+                }*@
             <!--</dd>-->
-        </dl>
-    </div>
+        @*</dl>
+    </div>*@
 </main>

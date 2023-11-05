@@ -1,0 +1,134 @@
+﻿@model WebApplication1.Models.AspNetUsers
+
+@{
+    ViewBag.Title = "ModificaUtente";
+}
+
+    <section class="py-5 overflow-hidden">
+
+        <div class="container mx-auto">
+            <div class="row align-items-center">
+
+                <div class="col-12 col-lg-6 mx-auto">
+                    <div class="p-5 mt-5 bg-light rounded text-center">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <h3 class="fw-bold mb-5">Modifica Profilo</h3>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="row">
+                                <div class="col col-12 col-lg-6">
+                                    @Html.HiddenFor(model => model.Id)
+                                    @Html.HiddenFor(model => model.EmailConfirmed)
+
+                                    @Html.HiddenFor(model => model.PasswordHash, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.HiddenFor(model => model.SecurityStamp, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.HiddenFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.HiddenFor(model => model.PhoneNumberConfirmed)
+
+                                    @Html.HiddenFor(model => model.TwoFactorEnabled)
+
+                                    @Html.HiddenFor(model => model.LockoutEndDateUtc, new { htmlAttributes = new { @class = "form-control" } })
+
+                                    @Html.HiddenFor(model => model.LockoutEnabled)
+
+                                    @Html.HiddenFor(model => model.AccessFailedCount, new { htmlAttributes = new { @class = "form-control" } })
+
+
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
+                                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "form-label", @for = "Nome" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+
+
+                                    @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control", @id = "Cognome" } })
+                                        @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "form-label", @for = "Cognome" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-12">
+
+                                    @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control", @id = "Indirizzo" } })
+                                        @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "form-label", @for = "Indirizzo" })
+                                    </div>
+                                </div>
+                                <div class="col col-12 col-lg-6">
+
+                                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @id = "Telefono" } })
+                                        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "form-label", @for = "Telefono" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    @Html.ValidationMessageFor(model => model.GustoFavorito, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.GustoFavorito, new { htmlAttributes = new { @class = "form-control", @id = "GustoFavorito" } })
+                                        @Html.LabelFor(model => model.GustoFavorito, htmlAttributes: new { @class = "form-label", @for = "GustoFavorito" })
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email" } })
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label", @for = "Email" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @id = "Username" } })
+                                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "form-label", @for = "Username" })
+                            </div>
+
+                            <div class="d-flex justify-content-between w-100">
+
+
+                                <button class="btn btn-dark py-2 w-100 mb-4">Modifica</button>
+                            </div>
+                        }
+                        <button class="btn btn-dark py-2 w-100 mb-4" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Elimina Profilo</button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Elimina Profilo</h5>
+                                        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            Il profilo verrà eliminato
+                                        </p>
+                                        <p>Sei sicuro?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                                        @Html.ActionLink("Elimina", "Delete", "Utenti", new { id = Model.Id }, new { @class = "btn btn-dark" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
