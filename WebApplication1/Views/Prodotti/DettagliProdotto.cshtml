@@ -14,13 +14,13 @@
                 <div id="carouselExampleIndicators" class="carousel slide" data-mdb-ride="carousel">
                     <div class="carousel-inner shadow-4-soft rounded-5">
                         <div class="carousel-item active">
-                            <img src="~/Content/img/@Model.FotoCopertina" class="d-block w-100" alt="Perfume 1" />
+                            <img src="~/Content/img/@Model.FotoCopertina" class="d-block w-100" alt="" />
                         </div>
                         <div class="carousel-item">
-                            <img src="~/Content/img/@Model.Foto1" class="d-block w-100" alt="Perfume 2" />
+                            <img src="~/Content/img/@Model.Foto1" class="d-block w-100" alt="" />
                         </div>
                         <div class="carousel-item">
-                            <img src="~/Content/img/@Model.Foto2" class="d-block w-100" alt="Perfume 2" />
+                            <img src="~/Content/img/@Model.Foto2" class="d-block w-100" alt="" />
                         </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-mdb-target="#carouselExampleIndicators" data-mdb-slide="prev">
@@ -35,7 +35,93 @@
             </div>
             <div class="col-lg-7 ps-lg-4 d-flex flex-column justify-content-between">
                 <h5>@Model.NomeProdotto</h5>
-                <p>@Model.DescrizioneBreve</p>
+                <div class="d-flex">
+
+                    @if (Model.MediaValutazione == null)
+            {
+
+}
+else
+            {
+
+                    <ul class="list-unstyled d-flex mb-0">
+                        @for (int i = 0; i < Model.MediaValutazione.Value; i++)
+                        {
+
+
+
+                            <li>
+                                <i class="fas fa-star fa-sm text-warning"></i>
+                            </li>
+
+                        }
+                        @if (Model.MediaValutazione < 1)
+                        {
+
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                        }
+                        else if (Model.MediaValutazione < 2)
+                        {
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                           
+                        }
+                        else if (Model.MediaValutazione < 3)
+                        {
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+
+                           
+                        }
+                        else if (Model.MediaValutazione < 4)
+                        {
+                            <li>
+                                <i class="far fa-star fa-sm text-warning"></i>
+                            </li>
+                          
+
+                          
+                        }
+                        
+
+
+
+
+                    </ul>
+                <div>
+                   
+                    <p>(@Model.TotRecensioni)</p>
+            
+                </div>
+            }
+                </div>
+                
+                <p class="my-0">@Model.DescrizioneBreve</p>
                 <p><span class="lead fw-normal">@Model.Prezzo.ToString("C2")</span></p>
                 <div class="w-100 my-2">
                     @if (User.IsInRole("Admin"))
@@ -58,7 +144,7 @@
                     }
                 </div>
                 <div class="row">
-                    <div class="col-12 mb-4">
+                    <div class="col-12 mb-2">
                         <em class="text-lowercase"> @Model.Descrizione</em>
                     </div>
                     @if (Model.IdCategoria == 1)
@@ -205,3 +291,21 @@
 
 </div>
 <!-- Container for demo purpose -->
+<section class="container">
+
+    <div>
+        @{
+
+        Html.RenderAction("RecensioniProdotto","Recensioni");
+        }
+
+        
+    </div>
+    <div>
+        @{
+
+        Html.RenderAction("_CreaRecensione", "Recensioni");
+        }
+
+    </div>
+</section>

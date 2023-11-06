@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
@@ -49,6 +50,15 @@ namespace WebApplication1.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Prodotti prodotti = db.Prodotti.Find(id);
+            double? media = db.Recensioni
+         .Where(r => r.IdProdotti == id)
+         .Average(r => r.Valutazione);
+            prodotti.MediaValutazione = media;
+
+            int? tot= db.Recensioni.Where(r => r.IdProdotti == id)
+         .Count();
+            prodotti.TotRecensioni = tot;
+
             if (prodotti == null)
             {
                 return HttpNotFound();
@@ -215,6 +225,12 @@ namespace WebApplication1.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+
+
+
+       
 
         protected override void Dispose(bool disposing)
         {

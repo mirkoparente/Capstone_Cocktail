@@ -29,9 +29,12 @@ namespace WebApplication1.Models
         public string DescrizioneBreve { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:f3}",ApplyFormatInEditMode =true)]
         public decimal Prezzo { get; set; }
 
         [Column(TypeName = "money")]
+        [DisplayFormat(DataFormatString = "{0:f3}",ApplyFormatInEditMode =true)]
+
         public decimal? PrezzoScontato { get; set; }
 
         public bool Disponibile { get; set; }
@@ -53,7 +56,15 @@ namespace WebApplication1.Models
 
         public int IdCategoria { get; set; }
 
-        public virtual Categoria Categoria { get; set; }
+
+        [NotMapped]
+        public double? MediaValutazione { get; set; }
+
+
+        [NotMapped]
+        public int? TotRecensioni { get; set; }
+
+         public virtual Categoria Categoria { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DettagliOrdine> DettagliOrdine { get; set; }

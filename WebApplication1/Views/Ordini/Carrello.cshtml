@@ -94,18 +94,14 @@ else
                                         <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
                                         <hr class="my-4">
 
-                                        <div class="d-flex justify-content-between mb-5">
+                                        <div class="d-flex justify-content-between mb-5 pb-5">
                                             <h5 class="text-uppercase mb-3">Total price</h5>
-                                            <h5>
+                                            <h5 id="totale">
                                                 @if (ViewBag.Totale != null)
                                                 {
-                                                    @ViewBag.Totale.ToString("C2")
+                                                   @ViewBag.Totale.ToString("C2")
                                                 }
-                                                else
-                                                {
-                                                    0.ToString("C2");
-
-                                                }
+                                              
                                             </h5>
                                         </div>
 
@@ -119,7 +115,7 @@ else
 
 
 
-                                        <hr class="my-5">
+                                        <hr class="my-5 pb-4">
 
 
 
@@ -163,6 +159,9 @@ else
     <script src="https://www.paypal.com/sdk/js?client-id=AcI4QMqvxfWxrEwADE7phJMFiR7Un7C3oLo7DJCnPLhVh5oNFILIwbaKwxUutM2P6CjzN3b8AldA2B4T&currency=EUR"></script>
     <script>
 
+        var totale = $("#totale").text()
+       
+                console.log(parseFloat(totale))
         paypal.Buttons({
             style: {
                 layout: 'vertical',
@@ -173,11 +172,11 @@ else
             },
 
             createOrder: function (data, actions) {
-
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '0.01'
+                        //    value: parseFloat(totale)  pagamento totale nel carrello
+                            value: "0.01"
                         }
                     }]
                 })
@@ -189,8 +188,12 @@ else
                         url: "Checkout",
                         success: function (data) {
                             console.log(data)
+
                             $(window.location).attr("href", "./ConfermaOrdine")
-                            
+
+                            setTimeout(function () {
+                                $(window.location).attr("href", "./Home/Index");
+                            }, 2000);
                         }
                     })
                     console.log("detail", detail)

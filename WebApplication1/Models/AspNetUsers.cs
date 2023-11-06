@@ -43,6 +43,7 @@ namespace WebApplication1.Models
 
         [Required]
         [StringLength(256)]
+        [Display(Name ="Username")]
         public string UserName { get; set; }
 
 

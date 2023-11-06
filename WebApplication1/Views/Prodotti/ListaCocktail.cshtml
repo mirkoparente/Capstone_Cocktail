@@ -36,11 +36,11 @@
 
                         <p class="mb-0">@item.DescrizioneBreve</p>
 
-                        <div class="d-flex w-100 justify-content-center h-50 mt-3">
+                        <div class="d-flex w-100 justify-content-center mt-3">
                             @if (item.Disponibile != false)
                             {
 
-                                <a href="@Url.Action("AggiungiAlCarrello", "Ordini", new {id=item.IdProdotti})" class="link-dark"><i class="fas fa-shopping-bag"></i></a>
+                                <a href="@Url.Action("AggiungiAlCarrello", "Ordini", new {id=item.IdProdotti})" class="btn btn-dark link-light">Aggiungi al carrello <i class=" ms-2 fas fa-shopping-bag"></i></a>
                             }
                             else
                             {
