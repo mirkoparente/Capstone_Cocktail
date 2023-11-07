@@ -2,6 +2,13 @@
 
 <!-- Carousel wrapper -->
 <div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="0" class="active" aria-current="true"
+                aria-label="Slide 1"></button>
+        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2" aria-label="Slide 3"></button>
+    </div>
 
     <!-- Inner -->
     <div class="carousel-inner rounded-5 shadow-4-strong">
@@ -10,8 +17,8 @@
             <video source src="~/Content/Video/Cocktail video.mp4" autoplay muted loop;
                    class="d-block w-100 object-fit-cover"></video>
             <div class="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <h5>Scopri la nostra collezione di cocktail</h5>
+                <a href="@Url.Action("ListaCocktail","Prodotti")" class="btn btn-dark opacity-75 mt-5">Acquista subito</a>
             </div>
         </div>
 
@@ -20,18 +27,17 @@
             <img src="https://www.repstatic.it/content/contenthub/img/2022/01/11/120126965-ebe7f1d2-e043-473e-acad-995ea3772bad.jpg" class="d-block w-100 "
                  alt="Canyon at Nigh" />
             <div class="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h5>Ogni cocktail è miscelato con i migliori ingredienti per offrirti una piacevole sensazione in ogni momento della giornata</h5>
             </div>
         </div>
 
         <!-- Single item -->
         <div class="carousel-item" data-bs-interval="14000">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/Slides/img%20(23).webp" class="d-block w-100"
+            <img src="~/Content/img/recycle.png" class="d-block w-100"
                  alt="Cliff Above a Stormy Sea" />
             <div class="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <h5>Per noi l'ambiente è importante</h5>
+                <p>Per questo utilizziamo prodotti 100% riciclabili</p>
             </div>
         </div>
     </div>
@@ -115,9 +121,9 @@
                 <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_ceck.png" alt="" class="iconaOrdina" />
                 <p class="ps-3">Completa l'ordine</p>
             </div>
-            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3 bg-red">
+            <div class="d-flex flex-column align-items-center col-sm-12 col-md-6 col-lg-3 ">
                 <h4 class="fs-istruzioni">4</h4>
-                <img src="https://lagranda.it/wp-content/themes/stockholm-child/assets/icon_posate.png" alt="" class="iconaOrdina" />
+                <img src="https://marketplace.canva.com/UcK3w/MAEF4kUcK3w/1/tl/canva-glasses-toasting-flat-icon-MAEF4kUcK3w.png" alt="" class="fs-6" width="58px" />
                 <p class="ps-3">Gusta il prodotto</p>
             </div>
         </div>

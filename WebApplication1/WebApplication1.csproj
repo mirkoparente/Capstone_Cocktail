@@ -388,6 +388,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\img\Progetto senza titolo.png" />
+    <Content Include="Content\img\recycle.png" />
     <Content Include="Content\StyleShuffle.css" />
     <Content Include="Content\Video\Cocktail video.mp4" />
     <Content Include="favicon.ico" />
@@ -460,7 +462,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

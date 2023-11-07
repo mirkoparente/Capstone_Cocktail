@@ -5,13 +5,25 @@
     ViewBag.Title = "ListaAccessori";
 }
 
-<!-- Container for demo purpose -->
-<div class="container my-5 py-5">
 
     <!--Section: Design Block-->
     <section class="mb-10">
+        <header>
+
+            <!-- Background image -->
+            <div class="text-center bg-image" style=" background-image: url('https://images.pexels.com/photos/7518776/pexels-photo-7518776.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); height: 400px; ">
+                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-white">
+                            <h2 class="fw-bold mb-md-0 mt-5">Accessori per mixologist</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Background image -->
+        </header>
+<div class="container">
         <div class="d-md-flex justify-content-center align-items-center mb-4">
-            <h2 class="fw-bold mb-md-0 mt-5">Accessori per mixologist</h2>
         </div>
         <div class="row">
             @foreach (var item in Model)
@@ -47,8 +59,7 @@
             }
 
         </div>
+</div>
     </section>
     <!--Section: Design Block-->
 
-</div>
-<!-- Container for demo purpose -->

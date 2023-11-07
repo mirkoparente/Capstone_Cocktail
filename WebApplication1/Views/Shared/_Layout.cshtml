@@ -148,36 +148,41 @@
 
     <!-- Remove the container if you want to extend the Footer to full width. -->
 
-    <div class="container-fluid mt-5">
-        <div class="row align-items-center">
-            <div class="col-12 col-lg-6 mb-4">
-                <a class="d-inline-block mb-4" href="#" data-config-id="brand">
-                    <img class="img-fluid" src="bootstrap5-plain-assets/logos/plainb-logo.svg" alt="" width="96">
-                </a>
-                <p class="d-none d-lg-block" data-config-id="copy">&copy; @DateTime.Now.Year - Mirko Parente</p>
+    <section class="text-center">
+        <footer class="footer text-bg-dark mt-auto p-3 d-flex justify-content-center flex-column">
+
+            <!-- Grid container -->
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+
+                    <!-- Twitter -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+
+                    <!-- Google -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+
+                    <!-- Instagram -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+
+                    <!-- Linkedin -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+
+
+
+                </section>
+                <!-- Section: Social media -->
             </div>
-            @*<div class="col-12 col-lg-6">
-                    <div class="d-flex">
-                        <a class="ms-lg-auto d-inline-block me-4" href="#">
-                            <img src="~/Content/image/facebook.svg" alt="" data-config-id="auto-img-1">
-                        </a>
-                        <a class="d-inline-block me-4" href="#">
-                            <img src="bootstrap5-plain-assets/socials/twitter.svg" alt="" data-config-id="auto-img-2">
-                        </a>
-                        <a class="d-inline-block me-4" href="#">
-                            <img src="bootstrap5-plain-assets/socials/github.svg" alt="" data-config-id="auto-img-3">
-                        </a>
-                        <a class="d-inline-block me-4" href="#">
-                            <img src="bootstrap5-plain-assets/socials/instagram.svg" alt="" data-config-id="auto-img-4">
-                        </a>
-                        <a class="d-inline-block" href="#">
-                            <img src="bootstrap5-plain-assets/socials/linkedin.svg" alt="" data-config-id="auto-img-5">
-                        </a>
-                    </div>
-                </div>*@
-            <p class="mt-4 d-lg-none"> &copy; @DateTime.Now.Year - Mirko Parente</p>
-        </div>
-    </div>
+            <!-- Grid container -->
+            <!-- Copyright -->
+            <p>&copy; @DateTime.Now.Year COCKTAIL Mirko Parente </p>
+
+
+
+        </footer>
+    </section>
 
 
     @Scripts.Render("~/bundles/jquery")
