@@ -63,37 +63,28 @@ namespace WebApplication1.Controllers
         }
 
         // GET: Recensioni/Create
-        public ActionResult _CreaRecensione()
-        {
-
-            ViewBag.valutazione = Valutazione;
-            return PartialView("_CreaRecensione");
-
-        }
-
+      
         // POST: Recensioni/Create
         // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
         // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public ActionResult _CreaRecensione([Bind(Include = "IdRecensioni,IdProdotti,Id,Valutazione,Commento,DataCommento")] Recensioni recensioni, int id,int valutazione)
+        public ActionResult CreaRecensione(int id,int valutazione,string commento)
         {
+                Recensioni recensioni=new Recensioni();
             if (ModelState.IsValid)
             {
-                ViewBag.valutazione = Valutazione;
 
                 string user = User.Identity.GetUserId();
                 recensioni.DataCommento = DateTime.Now;
                 recensioni.IdProdotti = id;
                 recensioni.Id = user;
                 recensioni.Valutazione= valutazione;
+                recensioni.Commento= commento;
                 db.Recensioni.Add(recensioni);
                 db.SaveChanges();
 
             }
 
-            return PartialView("_CreaRecensione",recensioni);
+            return Json(recensioni,JsonRequestBehavior.AllowGet);
 
         }
 

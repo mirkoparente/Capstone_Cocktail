@@ -42,12 +42,12 @@ namespace WebApplication1.Models
             modelBuilder.Entity<AspNetUsers>()
                 .HasMany(e => e.Ordini)
                 .WithRequired(e => e.AspNetUsers)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Categoria>()
                 .HasMany(e => e.Prodotti)
                 .WithRequired(e => e.Categoria)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<DettagliOrdine>()
                 .Property(e => e.Totale)
@@ -60,7 +60,7 @@ namespace WebApplication1.Models
             modelBuilder.Entity<Ordini>()
                 .HasMany(e => e.DettagliOrdine)
                 .WithRequired(e => e.Ordini)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Prodotti>()
                 .Property(e => e.Prezzo)
@@ -73,7 +73,7 @@ namespace WebApplication1.Models
             modelBuilder.Entity<Prodotti>()
                 .HasMany(e => e.DettagliOrdine)
                 .WithRequired(e => e.Prodotti)
-                .WillCascadeOnDelete(false);
+                .WillCascadeOnDelete(true);
         }
     }
 }
