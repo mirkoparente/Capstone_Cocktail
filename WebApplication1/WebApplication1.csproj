@@ -457,7 +457,6 @@
     <Content Include="Views\Ordini\ConfermaOrdine.cshtml" />
     <Content Include="Views\Utenti\ListaUtenti.cshtml" />
     <Content Include="Views\Utenti\ModificaUtente.cshtml" />
-    <Content Include="Views\Recensioni\_CreaRecensione.cshtml" />
     <Content Include="Views\Recensioni\RecensioniProdotto.cshtml" />
   </ItemGroup>
   <ItemGroup>
