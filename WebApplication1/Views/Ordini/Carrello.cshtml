@@ -99,9 +99,9 @@ else
                                             <h5 id="totale">
                                                 @if (ViewBag.Totale != null)
                                                 {
-                                                   @ViewBag.Totale.ToString("C2")
+                                                    @ViewBag.Totale.ToString("C2")
                                                 }
-                                              
+
                                             </h5>
                                         </div>
 
@@ -153,6 +153,23 @@ else
     </section>
 }
 
+@* toast *@
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">Bootstrap</strong>
+            <small>11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Hello, world! This is a toast message.
+        </div>
+    </div>
+</div>
+
+
+
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
@@ -160,8 +177,8 @@ else
     <script>
 
         var totale = $("#totale").text()
-       
-                console.log(parseFloat(totale))
+
+        console.log(parseFloat(totale))
         paypal.Buttons({
             style: {
                 layout: 'vertical',
@@ -175,8 +192,11 @@ else
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                         value: parseFloat(totale) 
-                        //    value: "0.01"
+                            //Prezzo completo
+                            //value: parseFloat(totale)
+
+                            //Prezzo prova
+                            value: "0.01"
                         }
                     }]
                 })
@@ -189,13 +209,18 @@ else
                         success: function (data) {
                             console.log(data)
 
-                            $(window.location).attr("href", "./ConfermaOrdine")
 
-                            setTimeout(function () {
-                                $(window.location).attr("href", "./Home/Index");
-                            }, 2000);
+                            const toastLiveExample = $("#liveToast")
+                            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+                            toastBootstrap.show()
                         }
                     })
+
+                    setTimeout(function () {
+                        $(window.location).attr("href", "/Home/index")
+
+                    },3000)
+
                     console.log("detail", detail)
                 })
             },

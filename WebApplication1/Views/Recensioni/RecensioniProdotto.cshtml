@@ -1,106 +1,120 @@
 ﻿@model IEnumerable<WebApplication1.Models.Recensioni>
 
 
-<section class="mt-5 py-5">
-    <div class="row row-cols-3 d-flex justify-content-center">
-        <div class="col-md-10 col-xl-8 text-center">
-            <h3 class="mb-4">Recensioni</h3>
-        </div>
-    </div>
+        <!-- customer reviews -->
+        
+            <!-- customer reviews list -->
+           
+                <!-- reviews -->
+                @foreach (var item in Model)
+                {
+                    <div class="mb-4 pb-4 border-bottom">
+                        <div class="d-flex mb-3 align-items-center">
+                            <img src="https://icon-library.com/images/user-accounts-icon/user-accounts-icon-15.jpg" alt="" class="rounded-circle avatar me-3" width="55">
+                            <div class="ml-2">
+                                <h5 class="mb-1">
 
-    <div class="row row-cols-1 row-cols-lg-4 text-center">
-        @if (Model.Count() != 0)
-        {
+                                    @item.AspNetUsers.Nome @item.AspNetUsers.Cognome
+                                    <img src="~/assets/images/verified.svg" alt="">
+                                </h5>
+                                <p class="font-12 mb-0">
+                                    <span>@item.DataCommento</span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <span class="font-14 mr-2">
+                                @for (int i = 0; i < item.Valutazione.Value; i++)
+                                {
 
-            foreach (var item in Model)
-            {
-                <div class="col-md-4 mb-5 mb-md-0">
-                    <div class="d-flex justify-content-center mb-4">
-                        <img src="https://icon-library.com/images/user-accounts-icon/user-accounts-icon-15.jpg"
-                             class="bg-transparent rounded-circle shadow-1-strong" width="150" height="150" />
+
+
+
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+
+
+                                }
+                                @if (item.Valutazione < 5 && item.Valutazione == 4)
+                                {
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+                                }
+                                else if (item.Valutazione < 5 && item.Valutazione == 3)
+                                {
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+                                }
+                                else if (item.Valutazione < 5 && item.Valutazione == 2)
+                                {
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+                                }
+                                else if (item.Valutazione < 5 && item.Valutazione == 1)
+                                {
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                                    <i class="far fa-star fa-sm text-warning"></i>
+
+                                }
+                            </span>
+                        </div>
+                        <p>
+                            @item.Commento
+                        </p>
+                        <div class="d-flex">
+                            <div class="like mr-3 vote"> <img src="https://i.imgur.com/mHSQOaX.png"class="w-50"><span class="blue-text pl-2"></span> </div>
+                            <div class="unlike vote"> <img src="https://i.imgur.com/bFBO3J7.png" class="w-50"><span class="text-muted pl-2"></span> </div>
+                        </div>
                     </div>
-                    <h5 class="mb-3"> @item.AspNetUsers.Nome @item.AspNetUsers.Cognome</h5>
-                    <h6 class="text-primary mb-3">@item.AspNetUsers.UserName</h6>
-                    <p class="px-xl-3">
-                        <i class="fas fa-quote-left pe-2"></i>@item.Commento
-                    </p>
-                    <ul class="list-unstyled d-flex justify-content-center mb-0">
-                        @for (int i = 0; i < item.Valutazione.Value; i++)
-                        {
-
-
-
-                            <li>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                            </li>
-
-                        }
-                        @if (item.Valutazione < 5 && item.Valutazione == 4)
-                        {
-
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                        }
-                        else if (item.Valutazione < 5 && item.Valutazione == 3)
-                        {
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                        }
-                        else if (item.Valutazione < 5 && item.Valutazione == 2)
-                        {
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                        }
-                        else if (item.Valutazione < 5 && item.Valutazione == 1)
-                        {
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                            <li>
-                                <i class="far fa-star fa-sm text-warning"></i>
-                            </li>
-                        }
+                }
+                @*  *@
+                <a href="#!" class="btn btn-primary">Read More Reviews</a>
+           
 
 
 
 
-                    </ul>
-                </div>
-            }
 
 
 
 
-        }
-        else
-        {
-            <p>Non ci sono ancora recensioni per questo prodotto</p>
-        }
-    </div>
 
 
 
-  
-</section>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

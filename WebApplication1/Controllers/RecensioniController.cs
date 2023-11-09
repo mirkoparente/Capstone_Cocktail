@@ -43,7 +43,7 @@ namespace WebApplication1.Controllers
         // GET: Recensioni
         public ActionResult RecensioniProdotto(int id)
         {
-            var recensioni = db.Recensioni.Include(m=>m.AspNetUsers).Where(r => r.IdProdotti == id).ToList();
+            var recensioni = db.Recensioni.Include(m=>m.AspNetUsers).Where(r => r.IdProdotti == id).OrderByDescending(m=>m.DataCommento).Take(4).ToList();
             return PartialView("RecensioniProdotto",recensioni);
         }
 
