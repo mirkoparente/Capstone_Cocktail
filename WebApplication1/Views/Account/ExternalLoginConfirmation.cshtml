@@ -3,35 +3,93 @@
     ViewBag.Title = "Registrazione";
 }
 <main aria-labelledby="title">
-    <h2 id="title">@ViewBag.Title.</h2>
-    <h3>Associare l'account @ViewBag.LoginProvider.</h3>
+    <section class="position-relative py-5 overflow-hidden">
+        <div class="d-none d-lg-block position-absolute top-0 start-0 bg-black w-75 h-100" style="background-image:url(https://images.unsplash.com/photo-1582457601528-5f8757143fb1?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzIzMzB8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTgyMjcwMTV8&ixlib=rb-4.0.3&q=85&w=1224&h=1280);background-position:bottom;background-repeat:no-repeat">
 
-    @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-    {
-        @Html.AntiForgeryToken()
+        </div>
+        <div class="d-md-none position-absolute top-0 start-0 w-100 h-100">
 
-        <h4>Form di associazione</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <p class="text-info">
-            L'utente ha eseguito l'autenticazione con <strong>@ViewBag.LoginProvider</strong>.
-            Immetti un nome utente per il sito seguente e fai clic sul pulsante Registra per completare
-            l'accesso.
-        </p>
-        <div class="row">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+        <div class="container position-relative mx-auto">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-5 mb-5">
+                </div>
+                <div class="col-12 col-lg-5 ms-auto">
+                    <div class="p-5 mt-5 bg-light rounded text-center">
+
+                        <h3>Associare l'account @ViewBag.LoginProvider.</h3>
+                        @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row">
+                                <div class="col">
+
+                                    @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", @id = "Nome" } })
+                                        @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "form-label", @for = "Nome" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+
+
+                                    @Html.ValidationMessageFor(model => model.Cognome, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Cognome, new { htmlAttributes = new { @class = "form-control", @id = "Cognome" } })
+                                        @Html.LabelFor(model => model.Cognome, htmlAttributes: new { @class = "form-label", @for = "Cognome" })
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-12">
+
+                                    @Html.ValidationMessageFor(model => model.Indirizzo, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Indirizzo, new { htmlAttributes = new { @class = "form-control", @id = "Indirizzo" } })
+                                        @Html.LabelFor(model => model.Indirizzo, htmlAttributes: new { @class = "form-label", @for = "Indirizzo" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", @id = "Telefono" } })
+                                        @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "form-label", @for = "Telefono" })
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    @Html.ValidationMessageFor(model => model.GustoFavorito, "", new { @class = "text-danger" })
+                                    <div class="form-outline mb-4">
+                                        @Html.EditorFor(model => model.GustoFavorito, new { htmlAttributes = new { @class = "form-control", @id = "GustoFavorito" } })
+                                        @Html.LabelFor(model => model.GustoFavorito, htmlAttributes: new { @class = "form-label", @for = "GustoFavorito" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="form-outline mb-4">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @id = "Email" } })
+                                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "form-label", @for = "Email" })
+                            </div>
+
+
+                            <button class="btn btn-dark py-2 w-100 mb-4">Register</button>
+                        }
+
+
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="offset-md-2 col-md-10">
-                <input type="submit" class="btn btn-outline-dark" value="Registrazione" />
-            </div>
-        </div>
-    }
-</main>
+    </section>
+
+  </main>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using OpenAI_API.Models;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -347,51 +349,36 @@ namespace WebApplication1.Controllers
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
+
                 default:
-                    // Se l'utente non ha un account, chiedere all'utente di crearne uno
+                    // Se l'utente non ha un account, creo direttamente l'utente passando i dati da google
+
+                    var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                   
+
+                    var user = new ApplicationUser {  Nome = loginInfo.ExternalIdentity.FindFirstValue(ClaimTypes.GivenName), Cognome = loginInfo.ExternalIdentity.FindFirstValue(ClaimTypes.Surname), Email = loginInfo.Email, UserName=loginInfo.Email };
+                    var resul = await UserManager.CreateAsync(user);
+
+                    if (resul.Succeeded)
+                    {
+                        UserManager.AddToRole(user.Id, "User");
+                        var risult = await UserManager.AddLoginAsync(user.Id, info.Login);
+                        if (risult.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+                    AddErrors(resul);
+                    
+                   
                     ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    return View();
             }
         }
 
         //
         // POST: /Account/ExternalLoginConfirmation
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Recuperare le informazioni sull'utente dal provider di accesso esterno
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
-            }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
 
         //
         // POST: /Account/LogOff

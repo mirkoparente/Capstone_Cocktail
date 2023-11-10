@@ -5,6 +5,19 @@ namespace WebApplication1.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
+        [StringLength(100)]
+        public string Nome { get; set; }
+
+        [StringLength(100)]
+        public string Cognome { get; set; }
+        public string Indirizzo { get; set; }
+
+        [StringLength(50)]
+        [Display(Name = "Gusto Favorito")]
+        public string GustoFavorito { get; set; }
+
+        [StringLength(20)]
+        public string Telefono { get; set; }
         [Required]
         public string Email { get; set; }
     }
