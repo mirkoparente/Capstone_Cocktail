@@ -16,57 +16,18 @@ namespace WebApplication1.Controllers
 
     public class RecensioniController : Controller
     {
-        public List<SelectListItem> Valutazione
-        {
-            get
-            {
-                List<SelectListItem> list = new List<SelectListItem>();
-                SelectListItem item = new SelectListItem { Text = "Seleziona", Value = "0" };
-                SelectListItem item2 = new SelectListItem { Text = "1", Value = "1" };
-                SelectListItem item3 = new SelectListItem { Text = "2", Value = "2" };
-                SelectListItem item4 = new SelectListItem { Text = "3", Value = "3" };
-                SelectListItem item5 = new SelectListItem { Text = "4", Value = "4" };
-                SelectListItem item6 = new SelectListItem { Text = "5", Value = "5" };
-                list.Add(item);
-                list.Add(item2);
-                list.Add(item3);
-                list.Add(item4);
-                list.Add(item5);
-                list.Add(item6);
-                return list;
-            }
-        }
-
-
         private ContextDbModel db = new ContextDbModel();
 
-        // GET: Recensioni
+        // prendo le prime 4 recensioni
         public ActionResult RecensioniProdotto(int id)
         {
             var recensioni = db.Recensioni.Include(m=>m.AspNetUsers).Where(r => r.IdProdotti == id).OrderByDescending(m=>m.DataCommento).Take(4).ToList();
             return PartialView("RecensioniProdotto",recensioni);
         }
 
-        // GET: Recensioni/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Recensioni recensioni = db.Recensioni.Find(id);
-            if (recensioni == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recensioni);
-        }
+       
 
-        // GET: Recensioni/Create
-      
-        // POST: Recensioni/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+       //creo la recensione dell'utente
         public ActionResult CreaRecensione(int id,int valutazione,string commento)
         {
                 Recensioni recensioni=new Recensioni();

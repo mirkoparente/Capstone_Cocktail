@@ -155,15 +155,19 @@ else
 
 @* toast *@
 
-<div class="toast-container position-fixed start-50 p-3">
-    <div id="liveToast" class="toast alert-success" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto"></strong>
-            <small>@DateTime.Now</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
+<div class="toast-container position-fixed start-50 top-0 p-3">
+    <div id="liveToast" class="toast fade text-bg-success" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
-            Grazie per il tuo ordine.
+            <div class="d-flex gap-4">
+                <span><i class="fa-solid fa-circle-check fa-lg"></i></span>
+                <div class="d-flex flex-grow-1 align-items-center">
+                    <span class="fw-semibold">Grazie per il tuo ordine</span>
+                    <button type="button"
+                            class="btn-close btn-close-white btn-close-sm ms-auto"
+                            data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -173,6 +177,8 @@ else
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
+
+    @* Aggiungo paypal *@
     <script src="https://www.paypal.com/sdk/js?client-id=AcI4QMqvxfWxrEwADE7phJMFiR7Un7C3oLo7DJCnPLhVh5oNFILIwbaKwxUutM2P6CjzN3b8AldA2B4T&currency=EUR"></script>
     <script>
 
@@ -188,6 +194,7 @@ else
                 tagline: false
             },
 
+            //creo l'ordine
             createOrder: function (data, actions) {
                 return actions.order.create({
                     purchase_units: [{
@@ -201,6 +208,8 @@ else
                     }]
                 })
             },
+
+            //se l'ordine va a buon fine aggiungo toast per avvertire l'utente dell'ordine ricevuto
             onApprove: function (data, actions) {
                 return actions.order.capture().then(function (detail) {
                     $.ajax({
@@ -241,7 +250,8 @@ else
 
 
 
-
+        //per aumentareo diminuire la quantità e aggiornare il totale 
+        
         $(document).ready(function () {
             $(".qButton").change(function () {
                 var idProdotto = $(this).data('product-id');
@@ -284,6 +294,7 @@ else
 
 
 
+            // eliminare il prodotto nel carrello
             $('.deleteBtn').click(function () {
                 var idPrd = parseInt(this.value)
                 console.log(idPrd)

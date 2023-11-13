@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication1.Models.Ordini>
 
 @{
-    ViewBag.Title = "ListaOrdini";
+    ViewBag.Title = "Gestione Ordini";
 }
 
 <div class="container table-responsive mt-5 pt-5">
@@ -110,6 +110,8 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    @* ricercare gli ordini e il totale di una determinata data *@
     <script>
         $(document).ready(function() {
             $('#visualizza-statistiche').click(function () {

@@ -1,71 +1,81 @@
 ﻿@model IEnumerable<WebApplication1.Models.Prodotti>
 
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <strong class="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+
+
+
+
+<!-- Carosello -->
+<div class="position-relative">
+
+    <div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="toast-body">
-            Hello, world! This is a toast message.
+
+        <!-- Inner -->
+        <div class="carousel-inner rounded-5 shadow-4-strong">
+            <!-- Single item -->
+            <div class="carousel-item active" data-bs-interval="14000">
+                <video source src="~/Content/Video/Cocktail video.mp4" autoplay muted loop;
+                       class="d-block w-100 object-fit-cover"></video>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Scopri la nostra collezione di cocktail</h5>
+                    <a href="@Url.Action("ListaCocktail","Prodotti")" class="btn btn-dark opacity-75 mt-5">Acquista subito</a>
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item" data-bs-interval="14000">
+                <img src="https://www.repstatic.it/content/contenthub/img/2022/01/11/120126965-ebe7f1d2-e043-473e-acad-995ea3772bad.jpg" class="d-block w-100 "
+                     alt="Canyon at Nigh" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Ogni cocktail è miscelato con i migliori ingredienti per offrirti una piacevole sensazione in ogni momento della giornata</h5>
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item" data-bs-interval="14000">
+                <img src="~/Content/img/recycle.png" class="d-block w-100"
+                     alt="Cliff Above a Stormy Sea" />
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Per noi l'ambiente è importante</h5>
+                    <p>Per questo utilizziamo prodotti 100% riciclabili</p>
+                </div>
+            </div>
         </div>
+
+
     </div>
 </div>
 
 
+@* cta search gpt *@
+<!-- Jumbotron -->
+<div class="mt-5">
 
-
-
-<!-- Carousel wrapper -->
-<div id="carouselMaterialStyle" class="carousel slide carousel-fade" data-mdb-ride="carousel">
-    <!-- Indicators -->
-    <div class="carousel-indicators">
-        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="0" class="active" aria-current="true"
-                aria-label="Slide 1"></button>
-        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-mdb-target="#carouselMaterialStyle" data-mdb-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-
-    <!-- Inner -->
-    <div class="carousel-inner rounded-5 shadow-4-strong">
-        <!-- Single item -->
-        <div class="carousel-item active" data-bs-interval="14000">
-            <video source src="~/Content/Video/Cocktail video.mp4" autoplay muted loop;
-                   class="d-block w-100 object-fit-cover"></video>
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Scopri la nostra collezione di cocktail</h5>
-                <a href="@Url.Action("ListaCocktail","Prodotti")" class="btn btn-dark opacity-75 mt-5">Acquista subito</a>
-            </div>
-        </div>
-
-        <!-- Single item -->
-        <div class="carousel-item" data-bs-interval="14000">
-            <img src="https://www.repstatic.it/content/contenthub/img/2022/01/11/120126965-ebe7f1d2-e043-473e-acad-995ea3772bad.jpg" class="d-block w-100 "
-                 alt="Canyon at Nigh" />
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Ogni cocktail è miscelato con i migliori ingredienti per offrirti una piacevole sensazione in ogni momento della giornata</h5>
-            </div>
-        </div>
-
-        <!-- Single item -->
-        <div class="carousel-item" data-bs-interval="14000">
-            <img src="~/Content/img/recycle.png" class="d-block w-100"
-                 alt="Cliff Above a Stormy Sea" />
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Per noi l'ambiente è importante</h5>
-                <p>Per questo utilizziamo prodotti 100% riciclabili</p>
+    <div class="p-5 mt5 text-center bg-image" style="
+    background-image: url('../../Content/img/Screenshot 2023-11-13 180334.png');
+    height: 600px;
+  ">
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.4);">
+            <div class="d-flex justify-content-center align-items-center h-100">
+                <div class="text-white container">
+                    <h1 class="mb-3">Scopri il futuro della ricerca con Intelligenza Artificiale! </h1>
+                    <h4 class="mb-3">Prova oggi stesso la nostra potente piattaforma di ricerca IA e scopri come puoi ottenere risultati più rapidi, accurati e personalizzati. Ottieni il massimo valore dalle tue ricerche</h4>
+                    <a class="btn btn-outline-light btn-lg" href="@Url.Action("Search","SearchGpt")" role="button">Clicca qui per iniziare!</a>
+                </div>
             </div>
         </div>
     </div>
-    <!-- Inner -->
-    <!-- Controls -->
-
 </div>
-<!-- Carousel wrapper -->
+<!-- Jumbotron -->
 @*Bestseller*@
 
-<div class="container-fluid mt-5 bg-body-tertiary py-5">
+<div class="container-fluid bg-body-tertiary py-5">
 
 
     <!--Section: Content-->
@@ -87,12 +97,12 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <!-- Collection card -->
 
-                    <div class="card collection-card z-depth-1-half">
+                    <div class="card collection-card z-depth-1-half h-100">
                         <!-- Card image -->
                         <div class="view zoom">
                             <a href="@Url.Action("DettagliProdotto","Prodotti",new {id=i.IdProdotti})">
 
-                                <img src="~/Content/img/@i.FotoCopertina" class="img-fluid"
+                                <img src="~/Content/img/@i.FotoCopertina" class="img-fluid object-cover"
                                      alt="">
                             </a>
                             <div class="stripe dark">
@@ -118,7 +128,7 @@
         <!-- Grid row -->
 
     </section>
-    <!--Section: Content-->
+    <!--istruzioni -->
     <div class="container-fluid py-5">
 
         <div class="row my-5">
@@ -147,14 +157,14 @@
     </div>
 
 </div>
+
+@* testimonial *@
 <section class="mb-5 pb-5 container-fluid">
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 col-xl-8 text-center">
             <h3 class="mb-4">Testimonials</h3>
             <p class="mb-4 pb-2 mb-md-5 pb-md-0">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit, error amet
-                numquam iure provident voluptate esse quasi, veritatis totam voluptas nostrum
-                quisquam eum porro a pariatur veniam.
+
             </p>
         </div>
     </div>
@@ -167,8 +177,7 @@
             </div>
             <h5 class="mb-3">Maria Smantha</h5>
             <p class="px-xl-3">
-                <i class="fas fa-quote-left pe-2"></i>Lorem ipsum dolor sit amet, consectetur
-                adipisicing elit. Quod eos id officiis hic tenetur
+                <i class="fas fa-quote-left pe-2"></i>"Sono una grande appassionata di cocktail, ma spesso non ho il tempo di andare in un bar per gustarli. Grazie a Cocktail, la qualità degli ingredienti è eccezionale, e le ricette sono facili da seguire. Ora posso godermi cocktail deliziosi comodamente a casa mia!"
             </p>
             <ul class="list-unstyled d-flex justify-content-center mb-0">
                 <li>
@@ -195,8 +204,7 @@
             </div>
             <h5 class="mb-3">Lisa Cudrow</h5>
             <p class="px-xl-3">
-                <i class="fas fa-quote-left pe-2"></i>Ut enim ad minima veniam, quis nostrum
-                exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid commodi.
+                <i class="fas fa-quote-left pe-2"></i>Ho fatto diversi ordini su Cocktail e sono sempre rimasto soddisfatto. La consegna è veloce e affidabile, e i prodotti sono sempre di alta qualità. Adoro la varietà di scelte di cocktail e gli accessori disponibili. Questo negozio online ha davvero reso la mia esperienza di cocktail a casa un'esperienza straordinaria.
             </p>
             <ul class="list-unstyled d-flex justify-content-center mb-0">
                 <li>
@@ -223,8 +231,7 @@
             </div>
             <h5 class="mb-3">John Smith</h5>
             <p class="px-xl-3">
-                <i class="fas fa-quote-left pe-2"></i>At vero eos et accusamus et iusto odio
-                dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti.
+                <i class="fas fa-quote-left pe-2"></i>Ho organizzato una festa a casa e volevo impressionare i miei ospiti con dei cocktail straordinari. Cocktail è stato il mio salvatore! Ho trovato tutto ciò di cui avevo bisogno. La mia festa è stata un successo grazie a questo ecommerce. Non vedo l'ora di organizzare la prossima!
             </p>
             <ul class="list-unstyled d-flex justify-content-center mb-0">
                 <li>
@@ -247,3 +254,46 @@
     </div>
 </section>
 
+<!-- cookie Modal -->
+<div class="modal position-absolute top-100" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-mdb-backdrop="true" data-mdb-keyboard="true">
+    <div class="modal-dialog modal- modal-xl">
+        <div class="modal-content">
+
+            <div class="d-flex justify-content-center w-100 align-items-baseline">
+
+                <div class="modal-body">Usiamo i cookie per offrirti la miglior esperienza di navigazione
+                </div>
+                <div>
+
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">
+                        Rifiuta
+                    </button>
+                    <button type="button" class="btn btn-primary" data-mdb-dismiss="modal">Accetta</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("#exampleModal").modal("show")
+
+        })
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+}

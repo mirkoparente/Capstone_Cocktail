@@ -12,10 +12,11 @@ namespace WebApplication1.Controllers
     {
         private ContextDbModel db = new ContextDbModel();
 
+        //carico i 4 prodotti per bestseller
         public ActionResult Index()
         {
-            int prod = 4;
-            var prodotti = db.Prodotti.Where(p => p.Categoria.DescrizioneCategoria == "Cocktail").Take(prod).ToList();
+            
+            var prodotti = db.Prodotti.Where(p => p.Categoria.DescrizioneCategoria == "Cocktail").Take(4).ToList();
             return View(prodotti);
         }
 

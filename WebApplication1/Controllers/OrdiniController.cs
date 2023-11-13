@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
     {
         private ContextDbModel db = new ContextDbModel();
 
-        // GET: Ordini
+        // lista ordini
         public ActionResult ListaOrdini()
         {
             var ordini = db.Ordini.Include(o => o.AspNetUsers);
@@ -34,6 +34,8 @@ namespace WebApplication1.Controllers
             return View(prodotti);
         }
 
+
+        //aggiungo il prodotto al carrello in una sessione
         public ActionResult AggiungiAlCarrello(int id)
         {
             List<Carrello> carrello;
@@ -92,6 +94,8 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Carrello", "Ordini");
         }
 
+
+        //creo il carrello
         public ActionResult Carrello()
         {
             List<Carrello> carrello;
@@ -117,6 +121,8 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+
+        //json per modificare la quantità nel carrello e aggiornare il totale
         public ActionResult editPrdCarello(int id, int quantita)
         {
 
@@ -150,6 +156,7 @@ namespace WebApplication1.Controllers
         }
 
 
+        //rimuovere il prodotto nel carrello
         public ActionResult deletePrdCarello(int id)
         {
 
@@ -175,7 +182,7 @@ namespace WebApplication1.Controllers
 
 
 
-
+        //checkout, creo l'ordine e il dettaglio ordine  da salvare nel db 
         public ActionResult Checkout()
         {
             if (User.Identity.IsAuthenticated)

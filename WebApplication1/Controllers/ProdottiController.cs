@@ -74,9 +74,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // POST: Prodottis/Create
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+       //creo un prodotto
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddProdotto([Bind(Include = "IdProdotti,NomeProdotto,Descrizione,DescrizioneBreve,Prezzo,PrezzoScontato,Disponibile,Quantita,FotoCopertina,Foto1,Foto2,Gusto,Abbinamenti,IdCategoria,Ingredienti")] Prodotti prodotti, HttpPostedFileBase FotoCopertina, HttpPostedFileBase Foto1, HttpPostedFileBase Foto2)
@@ -131,7 +129,7 @@ namespace WebApplication1.Controllers
             return View(prodotti);
         }
 
-        // GET: Prodottis/Edit/5
+        // view modifica prodotto
         public ActionResult EditProdotto(int? id)
         {
             if (id == null)
@@ -147,9 +145,7 @@ namespace WebApplication1.Controllers
             return View(prodotti);
         }
 
-        // POST: Prodottis/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
+       //modifico il prodotto
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProdotto([Bind(Include = "IdProdotti,NomeProdotto,Descrizione,DescrizioneBreve,Prezzo,PrezzoScontato,Disponibile,Quantita,FotoCopertina,Foto1,Foto2,Gusto,Abbinamenti,IdCategoria,Ingredienti")] Prodotti prodotti, HttpPostedFileBase FotoCopertina, HttpPostedFileBase Foto1, HttpPostedFileBase Foto2)

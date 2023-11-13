@@ -13,7 +13,7 @@ namespace WebApplication1.Controllers
     {
         private ContextDbModel db = new ContextDbModel();
 
-        // GET: Utenti
+        //view Utenti
         public ActionResult ListaUtenti()
         {
             var utenti = db.AspNetUsers.Where(m=>m.AspNetRoles.Any(i=>i.Name=="User")) ;
@@ -21,6 +21,7 @@ namespace WebApplication1.Controllers
         }
 
 
+        //controllo se l'utente esiste ed è loggato per passarlo alla view
         public ActionResult ModificaUtente()
         {
             string userUse = User.Identity.Name;
@@ -33,6 +34,7 @@ namespace WebApplication1.Controllers
         }
 
 
+        //modifica profilo utente
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ModificaUtente([Bind(Exclude = "IdUtenti")] AspNetUsers user)

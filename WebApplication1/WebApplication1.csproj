@@ -442,6 +442,7 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\img\Progetto senza titolo.png" />
     <Content Include="Content\img\recycle.png" />
+    <Content Include="Content\img\Screenshot 2023-11-13 180334.png" />
     <Content Include="Content\StyleShuffle.css" />
     <Content Include="Content\Video\Cocktail video.mp4" />
     <Content Include="favicon.ico" />

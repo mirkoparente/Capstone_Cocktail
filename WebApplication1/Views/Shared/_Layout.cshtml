@@ -4,7 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title - Applicazione ASP.NET</title>
+    <title>@ViewBag.Title Cocktail</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
     <!-- Font Awesome -->
@@ -18,7 +20,7 @@
           rel="stylesheet" />
 
 </head>
-<body class="d-flex flex-column" style="height:100vh">
+<body class="d-flex flex-column bg-body-tertiary" style="height:100vh">
     <header>
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top mask-custom shadow-0">
@@ -39,6 +41,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto">
+
+                        @* se il ruolo è admin cambio link *@
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
@@ -73,36 +77,43 @@
                             </li>
                         }
                     </ul>
+
                     <ul class="navbar-nav d-flex flex-row">
                         <li class="nav-item me-3 me-lg-0">
-                            @if (Session["Carrello"] != null)
+                            @* se non è admin vedi carrello *@
+                            @if (!User.IsInRole("Admin"))
                             {
 
+                                if (Session["Carrello"] != null)
+                                {
 
-                                <a class="nav-link position-relative" href="@Url.Action("Carrello","Ordini") ">
-                                    <span class="position-absolute top-40 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
-                                        <span class="visually-hidden">New alerts</span>
-                                    </span>
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
-                            }
-                            else
-                            {
-                                <a class="nav-link" href="@Url.Action("Carrello","Ordini") ">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </a>
+                                    //badge carrello solo se c'è un prodotto
+                                    <a class="nav-link position-relative" href="@Url.Action("Carrello","Ordini") ">
+                                        <span class="position-absolute top-40 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                                            <span class="visually-hidden">New alerts</span>
+                                        </span>
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="nav-link" href="@Url.Action("Carrello","Ordini") ">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </a>
+                                }
                             }
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item me-3 me-lg-0">
-                                <div class="dropdown">
-                                    <a class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="dropdown ">
+                                    <a class="nav-link" href="#" role="button"   data-mdb-toggle="dropdown"
+    data-mdb-display="static" aria-expanded="false">
 
                                         <i class="fa-solid fa-user"></i>
                                     </a>
 
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu dropdown-menu-lg-end ">
                                         <li class="dropdown-item">Ciao @User.Identity.Name</li>
                                         <li>@Html.ActionLink("Profilo", "Index", "Manage", new { area = "" }, new { @class = "nav-link" })</li>
                                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -128,11 +139,16 @@
                                 </a>
                             </li>
                         }
-                        <li class="nav-item me-3 me-lg-0">
-                            <a class="nav-link" href="@Url.Action("Search","SearchGpt")">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </a>
-                        </li>
+                        @* se non è admin vedi ricerca *@
+                        @if (!User.IsInRole("Admin"))
+            {
+
+                            <li class="nav-item me-3 me-lg-0">
+                                <a class="nav-link" href="@Url.Action("Search","SearchGpt")">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </a>
+                            </li>
+            }
 
                     </ul>
                 </div>
@@ -155,20 +171,19 @@
             <div class="container p-4 pb-0">
                 <!-- Section: Social media -->
                 <section class="mb-4">
-                    <!-- Facebook -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-facebook-f"></i></a>
+                  
 
-                    <!-- Twitter -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-twitter"></i></a>
+                    <!-- GitHub -->
+                    <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/mirkoparente?tab=repositories" role="button"><i class="fab fa-github"></i></a>
 
                     <!-- Google -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-google"></i></a>
+                    <a class="btn btn-outline-light btn-floating m-1" href="mailto:mirkopare@gmail.com" role="button"><i class="fab fa-google"></i></a>
 
-                    <!-- Instagram -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-instagram"></i></a>
+                   
 
                     <!-- Linkedin -->
-                    <a class="btn btn-outline-light btn-floating m-1" href="#!" role="button"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-light btn-floating m-1"href="https://www.linkedin.com/in/mirko-parente-full-stack-developer"><i class="fab fa-linkedin-in"></i></a>
+                    
 
 
 

@@ -11,6 +11,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
     [Authorize]
+
+    //controller creato da mvc identity
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

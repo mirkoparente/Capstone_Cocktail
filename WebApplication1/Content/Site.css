@@ -1,4 +1,9 @@
-﻿/* Color of the links BEFORE scroll */
+﻿body{
+    background-color:#eee;
+}
+
+
+/* Color of the links BEFORE scroll */
 .navbar-scroll .nav-link,
 .navbar-scroll .navbar-toggler-icon,
 .navbar-scroll .navbar-brand {

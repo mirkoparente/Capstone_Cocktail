@@ -16,6 +16,8 @@
             @Html.AntiForgeryToken()
             <div id="socialLoginList">
                 <p>
+
+                    @* creo il bottone di accesso *@
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
                         if (p.AuthenticationType == "Google")

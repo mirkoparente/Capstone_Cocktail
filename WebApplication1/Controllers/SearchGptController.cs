@@ -22,42 +22,27 @@ namespace WebApplication1.Controllers
     {
         private ContextDbModel db = new ContextDbModel();
 
-        // GET: SearchGpt
+        // view SearchGpt
         public ActionResult Search()
         {
             return View();
         }
 
         
+        //chiamata all api di chat gpt
         public async Task<JsonResult> SearchGptAsync(string prompt)
         {
             string OutPutResult = "";
-            APIAuthentication authentication = new APIAuthentication("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");
-            // APIAuthentication object used to create an instance of the OpenAIAPI class
-            OpenAIAPI api = new OpenAIAPI(authentication);
 
-            //if(prompt =="Vorrei un cocktail amaro"|| prompt == "vorrei un cocktail amaro")
-            //{
-            //    prompt = "Amaro";
-            //}else if(prompt== "Vorrei un cocktail dolce")
-            //{
-            //    prompt = "Dolce";
-
-            //}
-            //else if (prompt == "Vorrei un cocktail fruttato")
-            //{
-            //    prompt = "Fruttato";
-
-            //}
-           
-            
+            APIAuthentication authentication = new APIAuthentication("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");
+            OpenAIAPI api = new OpenAIAPI(authentication);  
 
 
                 CompletionRequest completionRequest = new CompletionRequest();
             completionRequest.Prompt = prompt;
             completionRequest.Model = OpenAI_API.Models.Model.DavinciText;
-            completionRequest.MaxTokens= 50;
-            completionRequest.Temperature= 0;
+            completionRequest.MaxTokens = 100;
+            completionRequest.Temperature= 0.7;
             
             
             
@@ -70,15 +55,18 @@ namespace WebApplication1.Controllers
             }
 
 
-
+            //divido la stringa per ottenere l'ultma parola da passare come ricerca
+            //se l'utente scrive "vorrei un cocktail amaro" prendo solo amaro come criterio
             string[] promp=prompt.Split(' ');
             string pr=promp.LastOrDefault();
 
 
+            //passo l'ultima parola per cercare il prodotto in base al gusto
             var prodotto = await db.Prodotti
        .Where(m => m.Gusto.Contains(pr))
        .ToListAsync();
 
+            //creo una lista prodotti
             List<ProdottiGpt>pro= new List<ProdottiGpt>();
             foreach(var i in  prodotto)
             {

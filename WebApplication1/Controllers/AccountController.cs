@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
        
 
         //
-        // GET: /Account/Login
+        //view Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
@@ -79,9 +79,9 @@ namespace WebApplication1.Controllers
                 return View(model);
             }
 
-            // Questa opzione non calcola il numero di tentativi di accesso non riusciti per il blocco dell'account
-            // Per abilitare il conteggio degli errori di password per attivare il blocco, impostare shouldLockout: true
+            
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //controllo se l'utente esiste
             switch (result)
             {
                 case SignInStatus.Success:
@@ -97,7 +97,7 @@ namespace WebApplication1.Controllers
             }
         }
 
-        //
+        // mvc  Identity
         // GET: /Account/VerifyCode
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
@@ -141,7 +141,7 @@ namespace WebApplication1.Controllers
         }
 
         //
-        // GET: /Account/Register
+        //view Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -157,6 +157,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //creo l'utente
                 var user = new ApplicationUser { 
                    Nome=model.Nome, Cognome=model.Cognome,Indirizzo=model.Indirizzo,GustoFavorito=model.GustoFavorito,Telefono=model.Telefono, UserName = model.Email, Email = model.Email, 
                 };
@@ -164,10 +165,11 @@ namespace WebApplication1.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //aggiungo suolo per admin modificare "User" in Admin
                     UserManager.AddToRole(user.Id, "User");
+                    // loggo l'utente appena creato
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    //Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
                     // Inviare un messaggio di posta elettronica con questo collegamento
                      string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
@@ -183,7 +185,7 @@ namespace WebApplication1.Controllers
         }
 
         //
-        // GET: /Account/ConfirmEmail
+        // view Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
@@ -196,7 +198,7 @@ namespace WebApplication1.Controllers
         }
 
         //
-        // GET: /Account/ForgotPassword
+        //view Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
@@ -212,6 +214,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //trovo l'utente con email associata
                 var user = await UserManager.FindByNameAsync(model.Email);
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
@@ -219,8 +222,7 @@ namespace WebApplication1.Controllers
                     return View("ForgotPasswordConfirmation");
                 }
 
-                // Per altre informazioni su come abilitare la conferma dell'account e la reimpostazione della password, vedere https://go.microsoft.com/fwlink/?LinkID=320771
-                // Inviare un messaggio di posta elettronica con questo collegamento
+               // se l'email è confermata invio email per reimpostare la password
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reimposta password", "Per reimpostare la password, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
@@ -351,7 +353,7 @@ namespace WebApplication1.Controllers
                 case SignInStatus.Failure:
 
                 default:
-                    // Se l'utente non ha un account, creo direttamente l'utente passando i dati da google
+                    // Se l'utente non ha un account, creo direttamente l'utente passando i dati da google o facebook
 
                     var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                    
@@ -376,9 +378,6 @@ namespace WebApplication1.Controllers
                     return View();
             }
         }
-
-        //
-        // POST: /Account/ExternalLoginConfirmation
 
         //
         // POST: /Account/LogOff

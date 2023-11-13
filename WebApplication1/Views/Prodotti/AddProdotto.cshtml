@@ -1,7 +1,7 @@
 ﻿@model WebApplication1.Models.Prodotti
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Aggiungi Prodotto";
 }
 
 @using (Html.BeginForm("AddProdotto", "Prodotti", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -161,8 +161,8 @@
                     <div class="col-md-4">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/A_Manhattan.jpg/1200px-A_Manhattan.jpg"
                              alt="Immagine Prodotto"
-                             class="img-fluid rounded-start"
-                             style="width: auto; height: 680px;"
+                             class="img-fluid rounded-start mt-3"
+                             style="width: auto; height: 680px; object-fit:cover"
                              id="imgUpload" />
                     </div>
                 </div>
