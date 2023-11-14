@@ -317,9 +317,12 @@ namespace WebApplication1.Controllers
         }
 
 
-        public ActionResult ConfermaOrdine()
+        //totale ordini
+        public ActionResult TotOrdini()
         {
-            return View();
+            int TotOrd = db.Ordini.Count();
+
+            return Json(TotOrd,JsonRequestBehavior.AllowGet);
         }
     }
 }

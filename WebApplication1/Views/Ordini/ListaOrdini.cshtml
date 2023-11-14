@@ -8,7 +8,7 @@
     <h4 class="text-center my-3">Gestione Ordini</h4>
     <div class=" mt-5">
         <div class="row justify-content-center">
-            <div class="col 12">
+            <div class="col">
                 <div class="card">
                     <div class="card-header text-white bg-dark">
                         <h3 class="card-title">Statistiche giornaliere</h3>
@@ -41,78 +41,109 @@
                     </div>
                 </div>
             </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-header text-white bg-dark">
+                        <h3 class="card-title">Ordini Totali</h3>
+                    </div>
+                    <div class="card-body">
+                        <p id="tot" ></p>
+                    </div>
+                </div>
+            </div>
+    </div>
         </div>
     </div>
-    <table class="table align-middle mb-0 bg-body-tertiary">
-        <thead class="bg-light">
-            <tr>
-                <th>Cliente</th>
-                <th>Indirizzo</th>
-                <th>Data Ordine</th>
-                <th>Quantità Prodotti</th>
-                <th>Totale Ordine</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
 
-                            <img src="https://m.media-amazon.com/images/I/418wK+6vaQL.png"
-                                 alt=""
-                                 style="width: 45px; height: 45px"
-                                 class="rounded-circle" />
-                            <div class="ms-3">
-                                <p class="text-muted mb-0">@item.AspNetUsers.Nome</p>
-                                <p class="text-muted mb-0">@item.AspNetUsers.Cognome</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <p class="text-muted mb-0">@item.AspNetUsers.Indirizzo</p>
+    <div class="accordion accordion-borderless mt-5 container " id="accordionFlushExampleX">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOneX">
+                <button class="accordion-button" type="button" data-mdb-toggle="collapse"
+                        data-mdb-target="#flush-collapseOneX" aria-expanded="true" aria-controls="flush-collapseOneX">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                        <i class="fa-solid fa-cart-shopping me-3"></i>                    </div>
+                    Vedi tutti gli ordini
+                </button>
+            </h2>
+            <div id="flush-collapseOneX" class="accordion-collapse collapse"
+                 aria-labelledby="flush-headingOneX" data-mdb-parent="#accordionFlushExampleX">
+                <div class="accordion-body">
+                    <table class="table align-middle mb-0 bg-body-tertiary">
+                        <thead class="bg-light">
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Indirizzo</th>
+                                <th>Data Ordine</th>
+                                <th>Quantità Prodotti</th>
+                                <th>Totale Ordine</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
 
-                    </td> <td>
-                        <p class="text-muted mb-0">@item.DataOrdine</p>
+                                            <img src="https://m.media-amazon.com/images/I/418wK+6vaQL.png"
+                                                 alt=""
+                                                 style="width: 45px; height: 45px"
+                                                 class="rounded-circle" />
+                                            <div class="ms-3">
+                                                <p class="text-muted mb-0">@item.AspNetUsers.Nome</p>
+                                                <p class="text-muted mb-0">@item.AspNetUsers.Cognome</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="text-muted mb-0">@item.AspNetUsers.Indirizzo</p>
 
-                    </td>
+                                    </td>
+                                    <td>
+                                        <p class="text-muted mb-0">@item.DataOrdine</p>
 
-
-                    <td>
-
-                        @foreach (var i in item.DettagliOrdine)
-                        {
-
-                            <p class="text-muted">@i.Quantita Pz  - @i.Prodotti.NomeProdotto</p>
-                        }
-                    </td>
-
-                    @{
-                        decimal tot = Convert.ToDecimal(item.TotaleOrdine);
-                    }
-
-                    <td>
-                        <p class="fw-normal text-muted mb-1">@tot.ToString("C2") </p>
-                    </td>
+                                    </td>
 
 
-                    <td>
-                        <a href="@Url.Action("DettagliOrdine", "Ordini", new { id = item.IdOrdini })"><i class="fa-solid fa-circle-info text-dark"></i></a>
-                    </td>
-                </tr>
-            }
+                                    <td>
 
-        </tbody>
-    </table>
+                                        @foreach (var i in item.DettagliOrdine)
+                                        {
 
-</div>
+                                            <p class="text-muted">@i.Quantita Pz  - @i.Prodotti.NomeProdotto</p>
+                                        }
+                                    </td>
 
-@section scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+                                    @{
+                                        decimal tot = Convert.ToDecimal(item.TotaleOrdine);
+                                    }
 
-    @* ricercare gli ordini e il totale di una determinata data *@
-    <script>
+                                    <td>
+                                        <p class="fw-normal text-muted mb-1">@tot.ToString("C2") </p>
+                                    </td>
+
+
+                                    
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @section scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+
+        @* ricercare gli ordini e il totale di una determinata data *@
+<script>
         $(document).ready(function() {
             $('#visualizza-statistiche').click(function () {
                 var newDate = $('#data').val()
@@ -158,6 +189,15 @@
                 })
             })
 
+            $.ajax({
+                method: "GET",
+                url: '@Url.Action("TotOrdini","Ordini")',
+                success: function (data) {
+                    console.log(data)
+                    $("#tot").html(data)
+                }
+            })
+
         })
-    </script>
-}
+</script>
+    }

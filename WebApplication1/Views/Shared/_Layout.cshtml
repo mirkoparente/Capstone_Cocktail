@@ -66,14 +66,14 @@
                             </li>
 
                             <li class="nav-item">
-                                @Html.ActionLink("Box Cocktail", "ListaCocktail", "Prodotti", new { area = "" }, new { @class = "nav-link " })
+                                @Html.ActionLink("Cocktail", "ListaCocktail", "Prodotti", new { area = "" }, new { @class = "nav-link " })
                             </li>
                             <li class="nav-item">
                                 @Html.ActionLink("Mixology", "ListaAccessori", "Prodotti", new { area = "" }, new { @class = "nav-link " })
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#!">Contattaci</a>
+                                <a class="nav-link" href="@Url.Action("Search","SearchGpt")">Jarvis AI</a>
                             </li>
                         }
                     </ul>
@@ -108,7 +108,7 @@
                             <li class="nav-item me-3 me-lg-0">
                                 <div class="dropdown ">
                                     <a class="nav-link" href="#" role="button"   data-mdb-toggle="dropdown"
-    data-mdb-display="static" aria-expanded="false">
+                                        data-mdb-display="static" aria-expanded="false">
 
                                         <i class="fa-solid fa-user"></i>
                                     </a>

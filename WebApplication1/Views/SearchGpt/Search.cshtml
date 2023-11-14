@@ -57,8 +57,13 @@
                                  style="width: 45px; height: 100%;">
                             <div class=" flex-col">
                                 <div class="p-3 ms-3" style="border-radius: 15px; background-color:#f5f6f7">
+                                   @*risposta di chatgpt*@
+
                                     <p class="small mb-0" id="text"></p>
-                                    <p class="d-none small" id="hidden">Ti consiglio questi prodotti:</p>
+
+
+
+                                    <p class="d-none small" id="hidden">In base alle tue preferenze ti consiglio questi prodotti:</p>
                                     <div id="products">
                                     </div>
                                 </div>
@@ -69,20 +74,18 @@
                             </div>
 
 
-                            <form>
-                                <div class="d-flex align-items-end justify-between my-5 pt-5">
+                         
+                                <div class="d-flex align-items-baseline justify-between my-5 pt-5">
 
-                                    <div class="form-outline">
-                                        <input type="text" class="form-control rounded-pill" name="prompt" value="" id="prompt" rows="4" />
-                                        <label class="form-label" for="textAreaExample">Messaggio</label>
-
-                                    </div>
+                                    <div class="d-flex align-items-center  w-100 ">
+                                        <input autofocus type="text" class="form-control rounded-pill " name="prompt" value="" placeholder="Fammi una domanda" id="prompt" rows="4" />
                                     <button class="btn  rounded-pill ms-3" id="invia" type="button">
-
                                         <i class="fa-solid fa-play" id="invia"></i>
                                     </button>
+
+                                    </div>
                                 </div>
-                            </form>
+                      
                         </div>
                 </div>
 
@@ -113,38 +116,47 @@
             $("#prompt-text").removeClass("d-none")
             $("#prompt-text").addClass("d-block")
 
-            $("#prompt").html("messaggio")
+
+
             //faccio apparire lo spinner
             $("#spinner").removeClass("d-none")
             $("#spinner").addClass("d-block")
-            $.ajax({
-                method: 'GET',
-                url: "SearchGptAsync",
-                data: { prompt: prompt },
-                success: function (data) {
-                    console.log("Chiamata AJAX riuscita");
-                    console.log(data)
-                    //all'arrivo della risposta faccio sparire lo spinner
-                    $("#spinner").removeClass("d-block")
-                    $("#spinner").addClass("d-none")
 
-                    //aggiungo la risposta in chat
-                    $("#text").html(data.res);
-                    //stesso procedimento per far appartire la risposta
-                    $("#res").removeClass("d-none")
-                    $("#res").addClass("d-block")
+            prompt=prompt.toLowerCase()
+            console.log("lower",prompt)
+            if (prompt.includes("cocktail") || prompt.includes("drink") || prompt.includes("bevanda"))
+            {
 
-                    //faccio apparire i prodotti della ricerca
-                    $("#hidden").removeClass("d-none")
-                    $("#hidden").addClass("d-block")
 
-                    $("#prompt").html(" ")
-                    $.each(data, function (i, v) {
+                $.ajax({
+                    method: 'GET',
+                    url: "SearchGptAsync",
+                    data: { prompt: prompt },
+                    success: function (data) {
+                        $("#prompt").val("")
+                        console.log("Chiamata AJAX riuscita");
+                        console.log(data)
+                        //all'arrivo della risposta faccio sparire lo spinner
+                        $("#spinner").removeClass("d-block")
+                        $("#spinner").addClass("d-none")
 
-                        var productList = '<div class="container">';
+                        //aggiungo la risposta in chat
+                        $("#text").html(data.res);
+                        //stesso procedimento per far appartire la risposta
+                        $("#res").removeClass("d-none")
+                        $("#res").addClass("d-block")
 
-                        $.each(data.prodotti, function (index, product) {
-                            productList += ` <div class="col mb-5 mb-lg-0 d-flex flex-column justify-content-between">
+                        //faccio apparire i prodotti della ricerca
+                        $("#hidden").removeClass("d-none")
+                        $("#hidden").addClass("d-block")
+
+                        $("#prompt").html(" ")
+                        $.each(data, function (i, v) {
+
+                            var productList = '<div class="container">';
+
+                            $.each(data.prodotti, function (index, product) {
+                                productList += ` <div class="col mb-5 mb-lg-0 d-flex flex-column justify-content-between">
        <div>
 
            <div class="bg-image ripple hover-zoom shadow-5 rounded-5 mb-3" data-mdb-ripple-color="light">
@@ -155,7 +167,7 @@
            </div>
            <div class="d-flex justify-content-between">
                <h6>${product.NomeProdotto}</h6>
-               <h6>${product.Prezzo}</h6>
+               <h6>${product.Prezzo} €</h6>
            </div>
        </div>
 
@@ -179,7 +191,32 @@
 
                     }
                 })
+
+            } else {
+                
+                var err=""
+                if (prompt == "") {
+                    err = "Sono qui per te, fammi una domanda"
+                    $("#text").html(err)
+                } else {
+                    err = "Mi dispiace, ma per tutte le altre domande potresti rivolgerti a chat gpt. Se vuoi posso aiutarti nella scelta dei cocktail che preferisci"
+                    $("#text").html(err)
+
+                }
+                
+
+                console.log("else", prompt)
+                $("#prompt").val("")
+                //all'arrivo della risposta faccio sparire lo spinner
+                $("#spinner").removeClass("d-block")
+                $("#spinner").addClass("d-none")
+
+                //stesso procedimento per far appartire la risposta
+                $("#res").removeClass("d-none")
+                $("#res").addClass("d-block")
+            }
             })
+
 
 
 

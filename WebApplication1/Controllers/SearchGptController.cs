@@ -14,6 +14,8 @@ using OpenAI_API.Completions;
 using WebApplication1.Models;
 using System.Data.Entity;
 using static System.Net.Mime.MediaTypeNames;
+using System.Configuration;
+using Microsoft.AspNet.Identity;
 
 namespace WebApplication1.Controllers
 {
@@ -34,19 +36,30 @@ namespace WebApplication1.Controllers
         {
             string OutPutResult = "";
 
-            APIAuthentication authentication = new APIAuthentication("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");
+            APIAuthentication authentication = new APIAuthentication(ConfigurationManager.AppSettings["ApiKey"]);
             OpenAIAPI api = new OpenAIAPI(authentication);  
 
+
+            string LogUser = User.Identity.GetUserId();
+            string userg=db.AspNetUsers.Where(m=>m.Id==LogUser).Select(g=>g.GustoFavorito).FirstOrDefault();
+
+            prompt.ToLower();
+
+            if(prompt =="che cocktail mi consigli?"|| prompt=="consigliami un cocktail"||prompt=="che cocktail posso bere?"||prompt=="cosa posso bere?")
+            {
+                    prompt +=" "+ userg;
+            }
+            
 
                 CompletionRequest completionRequest = new CompletionRequest();
             completionRequest.Prompt = prompt;
             completionRequest.Model = OpenAI_API.Models.Model.DavinciText;
             completionRequest.MaxTokens = 100;
             completionRequest.Temperature= 0.7;
-            
-            
-            
 
+
+            
+            
 
             var comp = await api.Completions.CreateCompletionAsync(completionRequest);
             foreach (var compl in comp.Completions)
@@ -57,14 +70,16 @@ namespace WebApplication1.Controllers
 
             //divido la stringa per ottenere l'ultma parola da passare come ricerca
             //se l'utente scrive "vorrei un cocktail amaro" prendo solo amaro come criterio
+            //se scrive vorrei un cocktail con la tequila prendo solo tequila
             string[] promp=prompt.Split(' ');
             string pr=promp.LastOrDefault();
 
 
-            //passo l'ultima parola per cercare il prodotto in base al gusto
+            //passo l'ultima parola per cercare il prodotto in base al gusto o ingredienti
             var prodotto = await db.Prodotti
-       .Where(m => m.Gusto.Contains(pr))
+       .Where(m => m.Gusto.Contains(pr)|| m.Ingredienti.Contains(pr))
        .ToListAsync();
+
 
             //creo una lista prodotti
             List<ProdottiGpt>pro= new List<ProdottiGpt>();
