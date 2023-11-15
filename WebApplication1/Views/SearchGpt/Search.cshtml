@@ -62,8 +62,7 @@
                                     <p class="small mb-0" id="text"></p>
 
 
-
-                                    <p class="d-none small" id="hidden">In base alle tue preferenze ti consiglio questi prodotti:</p>
+                                    
                                     <div id="products">
                                     </div>
                                 </div>
@@ -146,11 +145,9 @@
                         $("#res").removeClass("d-none")
                         $("#res").addClass("d-block")
 
-                        //faccio apparire i prodotti della ricerca
-                        $("#hidden").removeClass("d-none")
-                        $("#hidden").addClass("d-block")
-
+                       //svuoto il prompt
                         $("#prompt").html(" ")
+                        //faccio apparire i prodotti della ricerca
                         $.each(data, function (i, v) {
 
                             var productList = '<div class="container">';

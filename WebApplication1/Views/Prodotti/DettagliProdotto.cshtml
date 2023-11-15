@@ -435,13 +435,11 @@ else
                         <form>
 
 
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             @Html.HiddenFor(m => m.IdProdotti)
                             <input type="hidden" name="DataCommento" />
                             <div class="modal-body p-4">
-                                <!-- Email input -->
-                                <div class="form-outline mb-4">
-                                    <label for="Valutazione" class="form-label">Valutazione</label>
+                                <!-- valutazione input -->
+                                <div class="mb-4">
                                     <select class="form-select" id="Valutazione">
 
                                         <option value="0">Seleziona</option>
@@ -453,14 +451,14 @@ else
                                     </select>
                                 </div>
 
-                                <!-- password input -->
+                                <!-- textarea commento-->
                                 <div class="form-outline mb-4">
                                     <textarea class="form-control border border-1" rows="5" id="Commento"></textarea>
                                     <label for="Commento" class="form-label ">Commento</label>
 
                                 </div>
 
-                                <!-- Submit button -->
+                                <!-- Submit button se non è admin -->
                                 @if (User.Identity.IsAuthenticated)
                                 {
 
@@ -529,7 +527,19 @@ else
 
             })
 
+            //console.log($("#up"))
 
+            //var up = $(".up")
+            //var counter = 0
+            //up.click(function () {
+            //    counter++
+            //    console.log(counter)
+
+
+            //    $("#upText").html(counter)
+            //    localStorage.setItem("counter", counter);
+
+            //})
 
 
 

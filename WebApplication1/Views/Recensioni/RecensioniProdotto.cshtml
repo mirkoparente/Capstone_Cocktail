@@ -1,97 +1,93 @@
 ﻿@model IEnumerable<WebApplication1.Models.Recensioni>
 
 
-        <!-- customer reviews -->
-        
-            <!-- customer reviews list -->
-           
-                <!-- reviews -->
-                
-                @foreach (var item in Model)
+<!-- customer reviews -->
+<!-- customer reviews list -->
+<!-- reviews -->
+
+@foreach (var item in Model)
+{
+    <div class="w-75  mb-4 pb-4 border-bottom">
+        <div class="d-flex mb-3 align-items-center">
+            <img src="https://icon-library.com/images/user-accounts-icon/user-accounts-icon-15.jpg" alt="" class="rounded-circle avatar me-3" width="55">
+            <div class="ml-2">
+                <h5 class="mb-1">
+
+                    @item.AspNetUsers.Nome @item.AspNetUsers.Cognome
+                </h5>
+                <p class="font-12 mb-0">
+                    <span>@item.DataCommento</span>
+                </p>
+            </div>
+        </div>
+        <div class="mb-2">
+            <span class="font-14 mr-2">
+                @for (int i = 0; i < item.Valutazione.Value; i++)
                 {
-                    <div class="w-75  mb-4 pb-4 border-bottom">
-                        <div class="d-flex mb-3 align-items-center">
-                            <img src="https://icon-library.com/images/user-accounts-icon/user-accounts-icon-15.jpg" alt="" class="rounded-circle avatar me-3" width="55">
-                            <div class="ml-2">
-                                <h5 class="mb-1">
-
-                                    @item.AspNetUsers.Nome @item.AspNetUsers.Cognome
-                                    <img src="~/assets/images/verified.svg" alt="">
-                                </h5>
-                                <p class="font-12 mb-0">
-                                    <span>@item.DataCommento</span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="mb-2">
-                            <span class="font-14 mr-2">
-                                @for (int i = 0; i < item.Valutazione.Value; i++)
-                                {
 
 
 
 
-                                    <i class="fas fa-star fa-sm text-warning"></i>
+                    <i class="fas fa-star fa-sm text-warning"></i>
 
 
-                                }
-                                @if (item.Valutazione < 5 && item.Valutazione == 4)
-                                {
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-                                }
-                                else if (item.Valutazione < 5 && item.Valutazione == 3)
-                                {
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-                                }
-                                else if (item.Valutazione < 5 && item.Valutazione == 2)
-                                {
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-                                }
-                                else if (item.Valutazione < 5 && item.Valutazione == 1)
-                                {
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-
-                                    <i class="far fa-star fa-sm text-warning"></i>
-
-                                }
-                            </span>
-                        </div>
-                        <p>
-                            @item.Commento
-                        </p>
-                        <div class="d-flex">
-                            <div class="like mr-3 vote"> <img src="https://i.imgur.com/mHSQOaX.png"class="w-50"><span class="blue-text pl-2"></span> </div>
-                            <div class="unlike vote"> <img src="https://i.imgur.com/bFBO3J7.png" class="w-50"><span class="text-muted pl-2"></span> </div>
-                        </div>
-                    </div>
                 }
-                @*  *@
-           
+                @if (item.Valutazione < 5 && item.Valutazione == 4)
+                {
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+                }
+                else if (item.Valutazione < 5 && item.Valutazione == 3)
+                {
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+                }
+                else if (item.Valutazione < 5 && item.Valutazione == 2)
+                {
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+                }
+                else if (item.Valutazione < 5 && item.Valutazione == 1)
+                {
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+
+                    <i class="far fa-star fa-sm text-warning"></i>
+
+                }
+            </span>
+        </div>
+        <p>
+            @item.Commento
+        </p>
+        <div class="d-flex">
+            <div   class="up mr-3"> <img src="https://i.imgur.com/mHSQOaX.png" class="w-50"><span id="upText" class="blue-text pl-2"></span> </div>
+            <div> <img src="https://i.imgur.com/bFBO3J7.png" class="w-50"><span id="down" class="text-muted pl-2"></span> </div>
+        </div>
+    </div>
+}
+@*  *@
 
 
 

@@ -45,17 +45,19 @@ namespace WebApplication1.Controllers
 
             prompt.ToLower();
 
-            if(prompt =="che cocktail mi consigli?"|| prompt=="consigliami un cocktail"||prompt=="che cocktail posso bere?"||prompt=="cosa posso bere?")
+            if(prompt =="che cocktail mi consigli?"|| prompt=="consigliami un cocktail"||prompt=="che cocktail posso bere?"||prompt=="cosa posso bere?"|| prompt=="vorrei un cocktail")
             {
                     prompt +=" "+ userg;
             }
             
 
-                CompletionRequest completionRequest = new CompletionRequest();
+            
+
+            CompletionRequest completionRequest = new CompletionRequest();
             completionRequest.Prompt = prompt;
             completionRequest.Model = OpenAI_API.Models.Model.DavinciText;
             completionRequest.MaxTokens = 100;
-            completionRequest.Temperature= 0.7;
+            completionRequest.Temperature= 1;
 
 
             
@@ -74,15 +76,56 @@ namespace WebApplication1.Controllers
             string[] promp=prompt.Split(' ');
             string pr=promp.LastOrDefault();
 
-
-            //passo l'ultima parola per cercare il prodotto in base al gusto o ingredienti
-            var prodotto = await db.Prodotti
-       .Where(m => m.Gusto.Contains(pr)|| m.Ingredienti.Contains(pr))
-       .ToListAsync();
-
-
-            //creo una lista prodotti
+            List<Prodotti> prodotto= new List<Prodotti>();
             List<ProdottiGpt>pro= new List<ProdottiGpt>();
+
+            //Se l'utente non ha il gusto favorito cerco il nome dei cocktail nel db in base all'output
+            if (pr == "")
+            {
+                //prendo i nomi
+                string[] nome = db.Prodotti.Select(m => m.NomeProdotto).ToArray();
+                //rimpiazzo la stringa levando i caratteri 
+                OutPutResult = OutPutResult.Replace("\n", "");
+                OutPutResult = OutPutResult.Replace("!", "");
+                OutPutResult = OutPutResult.Replace(":", "");
+                //creo un array di stringhe separate 
+                string[] output = OutPutResult.Split(' ');
+
+                //ciclo l'output
+                foreach (var e in output)
+                {
+                    //ciclo i nomi
+                    foreach (var o in nome)
+                        if (e.ToLower().Contains(o.ToLower())) {
+                            //se trovo corrispondenza tra i 2 cerco il prodotto
+                            prodotto = await db.Prodotti
+                            .Where(m => m.NomeProdotto.Contains(o))
+                            .ToListAsync();
+                            //creo una lista prodotti
+                            foreach (var i in prodotto)
+                            {
+                                ProdottiGpt p = new ProdottiGpt();
+                                p.NomeProdotto = i.NomeProdotto;
+                                p.IdProdotti = i.IdProdotti;
+                                p.FotoCopertina = i.FotoCopertina;
+                                p.Prezzo = i.Prezzo;
+                                pro.Add(p);
+
+                            }
+
+                        }
+
+                }
+               
+
+            }
+            else
+            {
+            //passo l'ultima parola per cercare il prodotto in base al gusto o ingredienti
+            prodotto = await db.Prodotti
+            .Where(m => m.Gusto.Contains(pr)|| m.Ingredienti.Contains(pr))
+            .ToListAsync();
+            //creo una lista prodotti
             foreach(var i in  prodotto)
             {
             ProdottiGpt p= new ProdottiGpt();
@@ -92,6 +135,19 @@ namespace WebApplication1.Controllers
                 p.Prezzo = i.Prezzo;
                 pro.Add(p);
             }
+              
+
+            }
+            if (prodotto.Count() == 0)
+            {
+                OutPutResult += " Se non ci sono corrispondenze nei prodotti puoi indicarmi i tuoi gusti. Es 'Vorrei un cocktail fruttato'";
+
+            }
+            else
+            {
+                OutPutResult += "Ti consiglio questi prodotti che ho trovato";
+            }
+
 
             var result = new
             {
@@ -99,9 +155,11 @@ namespace WebApplication1.Controllers
                 prodotti = pro
             };
 
-            return Json(result,JsonRequestBehavior.AllowGet);
-
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+
+
 
     
 
