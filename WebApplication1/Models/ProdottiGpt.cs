@@ -19,6 +19,8 @@ namespace WebApplication1.Models
         [DisplayFormat(DataFormatString = "{0:f3}", ApplyFormatInEditMode = true)]
         public decimal Prezzo { get; set; }
         public string FotoCopertina { get; set; }
+        public bool Disponibile { get; set; }
+
 
     }
 }

@@ -55,6 +55,7 @@ namespace WebApplication1.Controllers
          .Average(r => r.Valutazione);
             prodotti.MediaValutazione = media;
 
+            //vedo il totale delle recensioni per vederle sulla view
             int? tot= db.Recensioni.Where(r => r.IdProdotti == id)
          .Count();
             prodotti.TotRecensioni = tot;
@@ -67,7 +68,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        // GET: Prodottis/Create
+        // view add prodotto
         public ActionResult AddProdotto()
         {
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "DescrizioneCategoria");
@@ -81,8 +82,10 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //carico le foto
                 if (FotoCopertina != null)
                 {
+                    //salvo le foto nella path Content/img
                     string source = Path.Combine(Server.MapPath("~/Content/img"), FotoCopertina.FileName);
                     FotoCopertina.SaveAs(source);
                     prodotti.FotoCopertina = FotoCopertina.FileName;
@@ -107,9 +110,10 @@ namespace WebApplication1.Controllers
 
                 db.Prodotti.Add(prodotti);
                 db.SaveChanges();
+                
                 if (User.IsInRole("Admin"))
                 {
-
+                    //se categoria cocktail lo rimando in lista cocktail
                 if (prodotti.IdCategoria == 1)
                 {
                     return RedirectToAction("ListaCocktailAdmin");
@@ -117,6 +121,7 @@ namespace WebApplication1.Controllers
                 }
                 else
                 {
+                        //se accessori lo rimando in lista accessori
                     return RedirectToAction("ListaAccessoriAdmin");
 
                 }
@@ -152,6 +157,7 @@ namespace WebApplication1.Controllers
         {
             if (ModelState.IsValid)
             {
+                //salvo la foto come nell'add prodotto nella stessa path, se l'immagine non viene toccata rimane quella dell'add prodotto
                 if (FotoCopertina != null)
                 {
                     string source = Path.Combine(Server.MapPath("~/Content/img"), FotoCopertina.FileName);
@@ -181,6 +187,8 @@ namespace WebApplication1.Controllers
                 }
                 db.Entry(prodotti).State = EntityState.Modified;
                 db.SaveChanges();
+
+                //stessi rimandi nella view per categoria
                 if (prodotti.IdCategoria == 1)
                 {
                     return RedirectToAction("ListaCocktailAdmin");
@@ -196,31 +204,20 @@ namespace WebApplication1.Controllers
             return View(prodotti);
         }
 
-        // GET: Prodottis/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Prodotti prodotti = db.Prodotti.Find(id);
-            if (prodotti == null)
-            {
-                return HttpNotFound();
-            }
-            return View(prodotti);
-        }
+       
 
-        // POST: Prodottis/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Prodotti prodotti = db.Prodotti.Find(id);
-            db.Prodotti.Remove(prodotti);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+
+        //non voglio eliminare i prodotti, lascio il codice se verrà abilitata la deletecascade
+        // delete
+
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Prodotti prodotti = db.Prodotti.Find(id);
+        //    db.Prodotti.Remove(prodotti);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
 
 

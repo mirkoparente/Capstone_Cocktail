@@ -1,6 +1,8 @@
 ﻿@model WebApplication1.Models.ExternalLoginListViewModel
 @using Microsoft.Owin.Security
 
+
+@* partial view per creare i bottoni di accesso esterni e rimandarli nell'azione externallogin' *@
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
@@ -20,11 +22,12 @@
                     @* creo il bottone di accesso *@
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
+                        //se google creo il bottone google con logo
                         if (p.AuthenticationType == "Google")
                         {
 
                             <button type="submit" class="btn btn-dark mt-4 rounded-pill" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Accedi con l'account @p.Caption"><span><i class="fa-brands fa-google me-3"></i></span>Accedi con @p.AuthenticationType</button>
-                        }
+                        }//se facebook creo il bottone facebook con logo
                         else if (p.AuthenticationType == "Facebook")
                         {
                             <button type="submit" class="btn btn-dark mt-4 rounded-pill" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Accedi con l'account @p.Caption"><span><i class="fa-brands fa-facebook-f me-3"></i></span>Accedi con @p.AuthenticationType</button>

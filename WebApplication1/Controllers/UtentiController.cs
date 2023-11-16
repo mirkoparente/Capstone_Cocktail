@@ -14,6 +14,7 @@ namespace WebApplication1.Controllers
         private ContextDbModel db = new ContextDbModel();
 
         //view Utenti
+        //prendo la lista degli utenti che non sono admin
         public ActionResult ListaUtenti()
         {
             var utenti = db.AspNetUsers.Where(m=>m.AspNetRoles.Any(i=>i.Name=="User")) ;

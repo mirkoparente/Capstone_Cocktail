@@ -109,6 +109,7 @@ namespace WebApplication1.Controllers
                                 p.IdProdotti = i.IdProdotti;
                                 p.FotoCopertina = i.FotoCopertina;
                                 p.Prezzo = i.Prezzo;
+                                p.Disponibile= i.Disponibile;
                                 pro.Add(p);
 
                             }
@@ -133,6 +134,7 @@ namespace WebApplication1.Controllers
                 p.IdProdotti = i.IdProdotti;
                 p.FotoCopertina=i.FotoCopertina;
                 p.Prezzo = i.Prezzo;
+                    p.Disponibile= i.Disponibile;
                 pro.Add(p);
             }
               
@@ -145,7 +147,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                OutPutResult += "Ti consiglio questi prodotti che ho trovato";
+                OutPutResult += " Ti consiglio questi prodotti che ho trovato";
             }
 
 

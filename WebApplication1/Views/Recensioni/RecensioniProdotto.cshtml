@@ -19,6 +19,9 @@
                     <span>@item.DataCommento</span>
                 </p>
             </div>
+            <div class="w-50  d-flex justify-content-end">
+                <p id="modif" class="small text-muted"></p>
+            </div>
         </div>
         <div class="mb-2">
             <span class="font-14 mr-2">
@@ -81,8 +84,92 @@
         <p>
             @item.Commento
         </p>
+        @if (User.Identity.Name == item.AspNetUsers.UserName)
+            {
+
+            //modifica recensione
+            //faccio la chiamata ajax passando l'id recensione per importare i dati
+            <a  data-mdb-toggle="modal" data-mdb-target="#staticBackdrop2" href="@Url.Action("edito", "Recensioni", new {id=@item.IdRecensioni})" class="edit" data-recensione-id="@item.IdRecensioni"><i class="fa-regular fa-pen-to-square text-dark"></i></a>
+            //modal modifica
+            <div class="modal fade" id="staticBackdrop2" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog d-flex justify-content-center">
+                    <div class="modal-content w-100">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel1">Modifica recensione</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form>
+
+                            <input type="hidden" name="IdRecensioni" id="IdRecensioni"/>
+                            <input type="hidden" name="DataCommento" />
+
+                            <div class="modal-body p-4">
+                                <!-- valutazione input -->
+                                <div class="mb-4">
+                                    <select class="form-select" id="Valuta">
+
+                                        <option value="0">Seleziona</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+
+                                <!-- textarea commento-->
+                                <div class="form-outline mb-4">
+                                    <textarea class="form-control border border-1" rows="5" id="Comm"></textarea>
+                                    <label for="Commento" class="form-label ">Commento</label>
+
+                                </div>
+
+                               
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <button type="button" class="btn btn-dark" id="ModificaRecensione">Modifica Recensione</button>
+                                        </div>
+                                    </div>
+                              
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            //aelimina recensione 
+            <button class="border-0 bg-transparent" data-mdb-toggle="modal" data-mdb-target="#exampleModal"><i class="fa-solid fa-circle-minus"></i></button>
+            //Modal delete
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Elimina Recensione</h5>
+                            <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                La recensione verrà eliminata
+                            </p>
+                            <p>Sei sicuro?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Annulla</button>
+                            @Html.ActionLink("Elimina", "Delete", "Recensioni", new { id = item.IdRecensioni }, new { @class = "btn btn-dark" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <div class="d-flex">
-            <div   class="up mr-3"> <img src="https://i.imgur.com/mHSQOaX.png" class="w-50"><span id="upText" class="blue-text pl-2"></span> </div>
+            <div class="up mr-3"> <img src="https://i.imgur.com/mHSQOaX.png" class="w-50"><span id="upText" class="blue-text pl-2"></span> </div>
             <div> <img src="https://i.imgur.com/bFBO3J7.png" class="w-50"><span id="down" class="text-muted pl-2"></span> </div>
         </div>
     </div>

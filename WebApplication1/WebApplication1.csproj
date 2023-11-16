@@ -420,6 +420,7 @@
     <Compile Include="Models\Prodotti.cs" />
     <Compile Include="Models\ProdottiGpt.cs" />
     <Compile Include="Models\Recensioni.cs" />
+    <Compile Include="Models\RecensioniJson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -445,6 +446,8 @@
     <Content Include="Content\img\recycle.png" />
     <Content Include="Content\img\Screenshot 2023-11-13 180334.png" />
     <Content Include="Content\img\Screenshot 2023-11-14 140641.png" />
+    <Content Include="Content\img\Screenshot 2023-11-16 112415.png" />
+    <Content Include="Content\img\Screenshot 2023-11-16 113435.png" />
     <Content Include="Content\StyleShuffle.css" />
     <Content Include="Content\Video\Cocktail video.mp4" />
     <Content Include="favicon.ico" />
@@ -503,7 +506,6 @@
     <Content Include="Views\Prodotti\EditProdotto.cshtml" />
     <Content Include="Views\Ordini\Carrello.cshtml" />
     <Content Include="Views\Ordini\ListaOrdini.cshtml" />
-    <Content Include="Views\Ordini\ConfermaOrdine.cshtml" />
     <Content Include="Views\Utenti\ListaUtenti.cshtml" />
     <Content Include="Views\Utenti\ModificaUtente.cshtml" />
     <Content Include="Views\Recensioni\RecensioniProdotto.cshtml" />

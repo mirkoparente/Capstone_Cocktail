@@ -38,7 +38,7 @@
             <div class="col-lg-7 ps-lg-4 d-flex flex-column justify-content-between">
                 <h5>@Model.NomeProdotto</h5>
                 <div class="d-flex">
-
+                    @* stelle valutazione per ogni valutazione aggiungo una stella *@
                     @if (Model.MediaValutazione == null)
                     {
 
@@ -126,6 +126,9 @@
                 <p class="my-0">@Model.DescrizioneBreve</p>
                 <p><span class="lead fw-normal">@Model.Prezzo.ToString("C2")</span></p>
                 <div class="w-100 my-2">
+
+
+                    @* se l'utente non è admin e la quantità è diponibile acquista, altrimenti non è disponibile' *@
                     @if (User.IsInRole("Admin"))
                     {
 
@@ -289,10 +292,10 @@
             </div>
         </div>
     </section>
-    <!--Section: Design Block-->
+    <!--Section-->
 
 </div>
-<!-- Container for demo purpose -->
+<!--  -->
 
 <section class="mt-5 py-5 container">
     <div class="row row-cols-3 d-flex justify-content-center">
@@ -303,7 +306,7 @@
     <div class="row row-cols-1 row-cols-md-2 justify-content-center">
         <div class="col">
             <div class="d-flex">
-
+                @* valutazione stelle *@
                 @if (Model.MediaValutazione == null)
                 {
 
@@ -390,25 +393,26 @@
 
             <h4 class="mb-1">La tua opinione è importante</h4>
             <p class="font-12 ">Condividi la tua esperienza con altri acquirenti </p>
+            @* se admin non aggiungo recnsione *@
             @if (User.IsInRole("Admin"))
             {
 
-}
-else
+            }
+            else
             {
 
-            <button class="w-100 btn btn-dark my-5" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop1">Aggiungi recensione</button>
+                <button class="w-100 btn btn-dark my-5" data-mdb-toggle="modal" data-mdb-target="#staticBackdrop1">Aggiungi recensione</button>
             }
 
         </div>
     </div>
-        <div class="row row-cols-1 justify-content-center ">
-            @{
+    <div class="row row-cols-1 justify-content-center ">
+        @{
 
-                Html.RenderAction("RecensioniProdotto", "Recensioni");
-            }
+            Html.RenderAction("RecensioniProdotto", "Recensioni");
+        }
 
-        </div>
+    </div>
     <div>
 
 
@@ -422,9 +426,9 @@ else
         {
 
 
-            
 
-            <!-- Modal -->
+
+            <!-- Modale aggiungi recensioni -->
             <div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
                 <div class="modal-dialog d-flex justify-content-center">
                     <div class="modal-content w-100">
@@ -433,6 +437,7 @@ else
                             <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form>
+
 
 
                             @Html.HiddenFor(m => m.IdProdotti)
@@ -484,7 +489,26 @@ else
             </div>
         }
         <!-- Modal -->
+        @* accordion per mostrare tutte le recensioni *@
+        <div class="accordion accordion-borderless" id="accordionFlushExampleX">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOneX">
+                    <button class="accordion-button" type="button" data-mdb-toggle="collapse"
+                            data-mdb-target="#flush-collapseOneX" aria-expanded="true" aria-controls="flush-collapseOneX">
+                        Vedi tutte le recensioni
+                    </button>
+                </h2>
+                <div id="flush-collapseOneX" class="accordion-collapse collapse"
+                     aria-labelledby="flush-headingOneX" data-mdb-parent="#accordionFlushExampleX">
+                    <div class="accordion-body">
+                        @{
 
+                            Html.RenderAction("RecensioniProdottoTot", "Recensioni");
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -498,11 +522,11 @@ else
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
+<script>
         $(document).ready(function () {
 
 
-
+            //aggiungo recensione
             console.log("kjfs")
             $("#recensione").click(function () {
                 var IdProdotti = $("#IdProdotti").val()
@@ -519,6 +543,7 @@ else
                     data: { id: IdProdotti, commento: commento, valutazione: valutazione },
                     success: function (data) {
                         console.log(data)
+                         //aggiorno la stessa pagina
                         $(window.location).attr("href", `?id=${IdProdotti}`)
 
                     }
@@ -527,22 +552,63 @@ else
 
             })
 
-            //console.log($("#up"))
 
-            //var up = $(".up")
-            //var counter = 0
-            //up.click(function () {
-            //    counter++
-            //    console.log(counter)
-
-
-            //    $("#upText").html(counter)
-            //    localStorage.setItem("counter", counter);
-
-            //})
+            //prendo i dati della recensione per modificare
+            $(".edit").click(function () {
+                console.log($("#edit"))
+                var IdProdotti = $("#IdProdotti").val()
+                console.log(IdProdotti)
+                var IdRece = $(this).data("recensione-id")
+                console.log(IdRece)
+                $("#IdRecensioni").val(IdRece);              
 
 
+                $.ajax({
+                    method: 'GET',
+                    url: "/Recensioni/edito",
+                    data: { id: IdRece },
+                    success: function (data) {
+                        console.log(data)
+                        console.log(data.Commento)
 
+                       $("#Comm").val(data.Commento)
+                       $("#Valuta").val(data.Valutazione)
+
+                    }
+                })
+
+
+            })
+
+            //invio le modifiche della recensione
+            $("#ModificaRecensione").click(function () {
+                var IdProdotti = $("#IdProdotti").val()
+                console.log("prod",IdProdotti)
+                var valutazione = $("#Valuta").find("option:selected").val();
+                console.log("val",valutazione)
+                var commento = $("#Comm").val()
+                console.log("comm", commento)
+                var IdRece = $("#IdRecensioni").val(); 
+
+                console.log(IdRece)
+
+               
+                $.ajax({
+                    method: 'GET',
+                    url: "/Recensioni/Edit",
+                    data: { id: IdProdotti, idRece: IdRece, commento: commento, valutazione: valutazione },
+                    success: function (data) {
+                        console.log(data)
+                        //aggiorno la stessa pagina
+                        $(window.location).attr("href", `?id=${IdProdotti}`)
+                    }
+                })
+
+
+
+            })
+                        $("#modif").text("Modificato")
+          
         })
 
 
@@ -552,5 +618,5 @@ else
 
 
 
-    </script>
+</script>
 }

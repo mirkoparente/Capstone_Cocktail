@@ -16,6 +16,8 @@ using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
     [Authorize]
+
+    //mvc identity
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -84,7 +86,12 @@ namespace WebApplication1.Controllers
             //controllo se l'utente esiste
             switch (result)
             {
+            
                 case SignInStatus.Success:
+                    if (User.IsInRole("Admin"))
+                    {
+                        RedirectToAction("ListaOrdini", "Ordini");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -165,12 +172,13 @@ namespace WebApplication1.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //aggiungo suolo per admin modificare "User" in Admin
+                    //aggiungo ruolo quando creo l'utente in user
+                    //per aggiungere admin modificare "User" in "Admin"
                     UserManager.AddToRole(user.Id, "User");
                     // loggo l'utente appena creato
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // Inviare un messaggio di posta elettronica con questo collegamento
+                    // Inviare un messaggio di posta elettronica con questo collegamento per confermare l'email ad ogni nuova registrazione
                      string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Conferma account", "Per confermare l'account, fare clic <a href=\"" + callbackUrl + "\">qui</a>");
@@ -260,12 +268,14 @@ namespace WebApplication1.Controllers
             {
                 return View(model);
             }
+            //cerco l'utente con email associata
             var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Non rivelare che l'utente non esiste
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+            //se esiste modifico la password
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
@@ -359,10 +369,11 @@ namespace WebApplication1.Controllers
                    
 
                     var user = new ApplicationUser {  Nome = loginInfo.ExternalIdentity.FindFirstValue(ClaimTypes.GivenName), Cognome = loginInfo.ExternalIdentity.FindFirstValue(ClaimTypes.Surname), Email = loginInfo.Email, UserName=loginInfo.Email };
+                    //registro l'utente la prima volta
                     var resul = await UserManager.CreateAsync(user);
-
                     if (resul.Succeeded)
                     {
+                    //se va a buon fine aggiungo user ai ruoli e lo loggo nell'applicazione
                         UserManager.AddToRole(user.Id, "User");
                         var risult = await UserManager.AddLoginAsync(user.Id, info.Login);
                         if (risult.Succeeded)
@@ -380,11 +391,12 @@ namespace WebApplication1.Controllers
         }
 
         //
-        // POST: /Account/LogOff
+        // Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            //effettuo il logout
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }

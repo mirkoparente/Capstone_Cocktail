@@ -4,6 +4,7 @@
     ViewBag.Title = "Aggiungi Prodotto";
 }
 
+@* view add prodotto *@
 @using (Html.BeginForm("AddProdotto", "Prodotti", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -176,6 +177,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
+    @* se categoria è coccktail mostro input ingredienti gusto e abbinamento, se categoria è accessori  nascondo gli input  *@
     <script type="text/javascript">
             $(document).ready(function () {
                 $("#categoria").change(function () {
@@ -190,6 +192,7 @@
 
                     }
                 })
+                //vedo in anteprima la copertina da inserire
                 $('#Foto').change(function () {
                     var input = this;
                     if (input.files && input.files[0]) {

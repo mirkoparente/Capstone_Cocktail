@@ -4,6 +4,7 @@
     ViewBag.Title = "Modifica" + " "+  Model.NomeProdotto;
 }
 
+@* view modifica prodotto, stessi script come nell'addprodotto' *@
 @using (Html.BeginForm("EditProdotto", "Prodotti", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()

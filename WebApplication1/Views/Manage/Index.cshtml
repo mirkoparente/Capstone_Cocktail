@@ -3,6 +3,7 @@
     ViewBag.Title = "Gestisci";
 }
 
+@* index gestione profilo  *@
 <main aria-labelledby="title">
     <section class="py-5 overflow-hidden">
 
@@ -13,16 +14,20 @@
                     <div class="p-5 mt-5 bg-light rounded text-center">
 
                         <h3 class="fw-bold mb-5">Gestisci Account</h3>
+                        @* vado alla view per modificare il profilo *@
 
                         <a href="@Url.Action("ModificaUtente","Utenti")" class="btn btn-dark py-2 w-100 mb-4">Modifica Account </a>
 
                         <div>
                             
+                            @* se ha la password lo rimando in cambia password *@
                             @if (Model.HasPassword)
                             {
                                 @Html.ActionLink("Cambia password", "ChangePassword", null, new {@class= "btn btn-dark py-2 w-100 mb-4" })
                             }
+                            //altrimenti lo rimando in crea password
                             else
+                            
                             {
                                 @Html.ActionLink("Crea Password", "SetPassword",null, new { @class = "btn btn-dark py-2 w-100 mb-4" })
                             }

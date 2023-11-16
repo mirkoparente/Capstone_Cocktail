@@ -1,5 +1,7 @@
-﻿body{
-    background-color:#eee;
+﻿body {
+    background-color: #eee;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Quicksand', sans-serif;
 }
 
 
@@ -37,3 +39,17 @@
     --mdb-navbar-color: rgb(183 179 179 / 96%) !important;
     --mdb-navbar-hover-color: rgb(240 237 237 / 95%) !important;
 }
+
+.i{
+
+    height:100vh;
+}
+
+
+
+
+    @media screen and (min-width: 375px) and (max-width:770px) {
+        .i{
+            height: 60vh;
+        }
+    }

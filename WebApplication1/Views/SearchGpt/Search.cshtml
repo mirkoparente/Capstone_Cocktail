@@ -104,7 +104,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         console.log("ciao")
-        //prendo il valore del prompt (textarea) 
+        //prendo il valore del prompt (textarea)
         $("#invia").click(function () {
             var prompt = $("#prompt").val()
             console.log(prompt)
@@ -121,10 +121,9 @@
             $("#spinner").removeClass("d-none")
             $("#spinner").addClass("d-block")
 
-            prompt=prompt.toLowerCase()
-            console.log("lower",prompt)
-            if (prompt.includes("cocktail") || prompt.includes("drink") || prompt.includes("bevanda"))
-            {
+            prompt = prompt.toLowerCase()
+            console.log("lower", prompt)
+            if (prompt.includes("cocktail") || prompt.includes("drink") || prompt.includes("bevanda")) {
 
 
                 $.ajax({
@@ -145,12 +144,12 @@
                         $("#res").removeClass("d-none")
                         $("#res").addClass("d-block")
 
-                       //svuoto il prompt
+                        //svuoto il prompt
                         $("#prompt").html(" ")
                         //faccio apparire i prodotti della ricerca
                         $.each(data, function (i, v) {
 
-                            var productList = '<div class="container">';
+                            var productList = '<div class="container mt-5">';
 
                             $.each(data.prodotti, function (index, product) {
                                 productList += ` <div class="col mb-5 mb-lg-0 d-flex flex-column justify-content-between">
@@ -174,7 +173,16 @@
            <div class="d-flex w-100 justify-content-center mt-3 mb-5">
 
 
-                   <a href="/Ordini/AggiungiAlCarrello?id=${product.IdProdotti}" class="btn btn-dark link-light">Aggiungi al carrello <i class=" ms-2 fas fa-shopping-bag"></i></a>
+
+      ${product.Disponibile != false ?
+
+
+                                        ` <a href = "/Ordini/AggiungiAlCarrello?id=${product.IdProdotti}" class="btn btn-dark link-light"> Aggiungi al carrello <i class=" ms-2 fas fa-shopping-bag"></i></a>` :
+
+                                        ` <a href="/Ordini/AggiungiAlCarrello?id=${product.IdProdotti}" class="btn btn-dark link-light disabled">Non Disponibile</a>`
+                                    }
+
+
 
 
                </div>
@@ -190,17 +198,17 @@
                 })
 
             } else {
-                
-                var err=""
+
+                var err = ""
                 if (prompt == "") {
-                    err = "Sono qui per te, fammi una domanda"
+                    err = "Sono qui per te, fammi una domanda."
                     $("#text").html(err)
                 } else {
-                    err = "Mi dispiace, ma per tutte le altre domande potresti rivolgerti a chat gpt. Se vuoi posso aiutarti nella scelta dei cocktail che preferisci"
+                    err = "Mi dispiace ma Toni Stark non vuole che risponda a tutto, per tutte le altre domande potresti rivolgerti al mio amico Chat Gpt. Se vuoi posso aiutarti nella scelta dei cocktail che preferisci."
                     $("#text").html(err)
 
                 }
-                
+
 
                 console.log("else", prompt)
                 $("#prompt").val("")
@@ -212,13 +220,13 @@
                 $("#res").removeClass("d-none")
                 $("#res").addClass("d-block")
             }
-            })
-
-
-
-
-
         })
+
+
+
+
+
+    })
 
 
 

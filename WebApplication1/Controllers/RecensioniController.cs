@@ -24,6 +24,12 @@ namespace WebApplication1.Controllers
             var recensioni = db.Recensioni.Include(m=>m.AspNetUsers).Where(r => r.IdProdotti == id).OrderByDescending(m=>m.DataCommento).Take(4).ToList();
             return PartialView("RecensioniProdotto",recensioni);
         }
+          // prendo tutte le recensioni
+        public ActionResult RecensioniProdottoTot(int id)
+        {
+            var recensioni = db.Recensioni.Include(m=>m.AspNetUsers).Where(r => r.IdProdotti == id).OrderByDescending(m=>m.DataCommento).ToList();
+            return PartialView("RecensioniProdotto",recensioni);
+        }
 
        
 
@@ -49,65 +55,47 @@ namespace WebApplication1.Controllers
 
         }
 
-        // GET: Recensioni/Edit/5
-        public ActionResult Edit(int? id)
+      
+        public ActionResult edito(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Recensioni recensioni = db.Recensioni.Find(id);
-            if (recensioni == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", recensioni.Id);
-            ViewBag.IdProdotti = new SelectList(db.Prodotti, "IdProdotti", "NomeProdotto", recensioni.IdProdotti);
-            return View(recensioni);
-        }
+            RecensioniJson r=new RecensioniJson();
+            Recensioni recensioni=db.Recensioni.Find(id);
 
-        // POST: Recensioni/Edit/5
-        // Per la protezione da attacchi di overposting, abilitare le proprietà a cui eseguire il binding. 
-        // Per altri dettagli, vedere https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdRecensioni,IdProdotti,Id,Valutazione,Commento,DataCommento")] Recensioni recensioni)
+            r.Commento = recensioni.Commento;
+            r.Valutazione=recensioni.Valutazione;
+            r.IdProdotti = recensioni.IdProdotti;
+            r.IdRecensioni = recensioni.IdRecensioni;
+            return Json(r, JsonRequestBehavior.AllowGet);
+        }
+     
+        public ActionResult Edit( int id, string commento, int idRece, int valutazione, Recensioni recensioni)
         {
             if (ModelState.IsValid)
             {
+                string user = User.Identity.GetUserId();
+                recensioni.DataCommento = DateTime.Now;
+                recensioni.IdRecensioni = idRece;
+                recensioni.IdProdotti = id;
+                recensioni.Id = user;
+                recensioni.Valutazione =valutazione;
+                recensioni.Commento = commento;
                 db.Entry(recensioni).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(db.AspNetUsers, "Id", "Email", recensioni.Id);
-            ViewBag.IdProdotti = new SelectList(db.Prodotti, "IdProdotti", "NomeProdotto", recensioni.IdProdotti);
-            return View(recensioni);
+           
+            return Json(recensioni,JsonRequestBehavior.AllowGet);
         }
 
-        // GET: Recensioni/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Recensioni recensioni = db.Recensioni.Find(id);
-            if (recensioni == null)
-            {
-                return HttpNotFound();
-            }
-            return View(recensioni);
-        }
 
-        // POST: Recensioni/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+
+        //Recensioni/Delete/5
+        public ActionResult Delete(int id)
         {
             Recensioni recensioni = db.Recensioni.Find(id);
+            int? idprod = recensioni.IdProdotti;
             db.Recensioni.Remove(recensioni);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("DettagliProdotto","Prodotti",new {id=idprod});
         }
 
         protected override void Dispose(bool disposing)
