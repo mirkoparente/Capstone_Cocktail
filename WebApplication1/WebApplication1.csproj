@@ -511,6 +511,7 @@
     <Content Include="Views\Recensioni\RecensioniProdotto.cshtml" />
     <Content Include="Views\SearchGpt\Search.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Web1.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

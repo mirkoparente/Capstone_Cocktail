@@ -14,6 +14,7 @@ namespace WebApplication1.Controllers
         private ContextDbModel db = new ContextDbModel();
 
         // lista ordini
+        [Authorize(Roles ="Admin")]
         public ActionResult ListaOrdini()
         {
             var ordini = db.Ordini.Include(o => o.AspNetUsers);

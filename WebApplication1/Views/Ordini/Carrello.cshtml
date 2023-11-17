@@ -176,12 +176,14 @@ else
 
 
 
+    @{ 
+        string ApiPaypal = System.Configuration.ConfigurationManager.AppSettings["ApiPaypal"];
+    }
+
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
-
-
     @* Aggiungo paypal *@
-    <script src="https://www.paypal.com/sdk/js?client-id=AcI4QMqvxfWxrEwADE7phJMFiR7Un7C3oLo7DJCnPLhVh5oNFILIwbaKwxUutM2P6CjzN3b8AldA2B4T&currency=EUR"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=@ApiPaypal&currency=EUR"></script>
     <script>
 
         var totale = $("#totale").text()

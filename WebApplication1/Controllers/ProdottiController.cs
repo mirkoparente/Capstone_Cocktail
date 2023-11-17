@@ -29,6 +29,7 @@ namespace WebApplication1.Controllers
         }
 
         //Lista cocktail admin
+        [Authorize(Roles ="Admin")]
         public ActionResult ListaCocktailAdmin()
         {
             var prodotti = db.Prodotti.Include(p => p.Categoria).Where(p => p.Categoria.DescrizioneCategoria == "Cocktail");
@@ -36,6 +37,7 @@ namespace WebApplication1.Controllers
         }
 
         //Lista accessori admin
+        [Authorize(Roles = "Admin")]
         public ActionResult ListaAccessoriAdmin()
         {
             var prodotti = db.Prodotti.Include(p => p.Categoria).Where(p => p.Categoria.DescrizioneCategoria == "Accessori Mixology");
@@ -69,6 +71,7 @@ namespace WebApplication1.Controllers
 
 
         // view add prodotto
+        [Authorize(Roles = "Admin")]
         public ActionResult AddProdotto()
         {
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "DescrizioneCategoria");
@@ -135,6 +138,7 @@ namespace WebApplication1.Controllers
         }
 
         // view modifica prodotto
+        [Authorize(Roles = "Admin")]
         public ActionResult EditProdotto(int? id)
         {
             if (id == null)

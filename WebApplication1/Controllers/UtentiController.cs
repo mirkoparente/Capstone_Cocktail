@@ -15,6 +15,7 @@ namespace WebApplication1.Controllers
 
         //view Utenti
         //prendo la lista degli utenti che non sono admin
+        [Authorize(Roles = "Admin")]
         public ActionResult ListaUtenti()
         {
             var utenti = db.AspNetUsers.Where(m=>m.AspNetRoles.Any(i=>i.Name=="User")) ;
