@@ -2,13 +2,14 @@
 ## 💻 Full Stack Capstone Project
 
 Cocktail is an e-commerce platform and  management system for cocktails and mixologist products. It includes features for product management, order processing, user registration , login, access from external providers, adding items to the cart, checkout and payment. I've incorporated an artificial intelligence-powered search to engage and interact with users during navigation providing product recommendations as if they were at the real counter of a cocktail bar! 
-The application was developed in Asp.Net MVC, using MVC Identity Framework for user management, external API and SQL Server to store the data." 
+The application was developed in Asp.Net MVC, using MVC Identity Framework for user management, external API and SQL Server to store the data.
 
 ## 📋 Functionality
 * User registration and login with MVC Identity
 * Login external provider Google and Facebook
 * Email send to restore your password and confirm email registration
 * Checkout with Paypal
+* Add Edit and Delete product review
 * AI-powered search page with Chat Gpt Api
 * Product management and order statistics by the administrator (add, edit)
 
