@@ -1,7 +1,7 @@
 # 🍸 Ecommerce CocktAIl
 ## 💻 Full Stack Capstone Project
 
-Cocktail is an e-commerce platform and  management system for cocktails and mixologist products. It includes features for product management, order processing, user registration , login, access from external providers, adding items to the cart, checkout and payment. I've incorporated an artificial intelligence-powered search to engage and interact with users during navigation providing product recommendations as if they were at the real counter of a cocktail bar! 
+Cocktail is an e-commerce platform and  management system for cocktails and mixologist products. It includes features for product management, user registration , login, access from external providers, adding items to the cart, checkout and payment. I've incorporated an artificial intelligence-powered search to engage and interact with users during navigation providing product recommendations as if they were at the real counter of a cocktail bar! 
 The application was developed in Asp.Net MVC, using MVC Identity Framework for user management, external API and SQL Server to store the data.
 
 ## 📋 Functionality
