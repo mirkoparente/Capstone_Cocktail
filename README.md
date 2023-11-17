@@ -22,7 +22,7 @@ Make sure you have the following installed:
   
 * Clone the repository.
 * Open the project solution in Visual Studio.
-* In the `Content` folder there is a backup of the database (if you want a pre-populated database), execute the restore on SQL Server.
+* In the `Content` folder there is a backup of the database `Cocktail.bak` (if you want a pre-populated database), execute the restore on SQL Server.
 * Alternatively, use `enable-migration`, `add-migration` and `update-database` to create a new database.
 * Configure your `Connection string`, `Email provider`,  `Google`, `Facebook`, `Paypal` and `OpenAi`  APi Key in the `Web1.config` file.
 * If you created a new Database create manually 'Admin' and 'User' in `AspNetRoles`, Create a user in `AspNetUsers` and insert 'UserId', 'RoleId' in `AspNetUserRole`. 
