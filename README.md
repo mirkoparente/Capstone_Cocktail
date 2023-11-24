@@ -12,6 +12,11 @@ The application was developed in Asp.Net MVC, using MVC Identity Framework for u
 * Add Edit and Delete product review
 * AI-powered search page with Chat Gpt Api
 * Product management and order statistics by the administrator (add, edit)
+  
+## Update
+Visit my project 🌐
+
+[Cocktail](https://mirkopare-001-site1.anytempurl.com/)
 
 ## 📦 Setup 
 Make sure you have the following installed:
