@@ -16,7 +16,7 @@ The application was developed in Asp.Net MVC, using MVC Identity Framework for u
 ## Update
 Visit my project 🌐
 
-[Cocktail](https://mirkopare-001-site1.anytempurl.com/)
+[Cocktail](https://mirkoparente-001-site1.gtempurl.com/)
 
 ## 📦 Setup 
 Make sure you have the following installed:
